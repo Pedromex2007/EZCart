@@ -35,6 +35,7 @@ public class BrowseView extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @author Rafael Luviano
 	 */
 	public BrowseView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -63,6 +64,10 @@ public class BrowseView extends JFrame {
 		GenerateStoreButtons();
 	}
 	
+	/**
+	 * Create panels that contain all items from our database.
+	 * @author Rafael Luviano
+	 */
 	private void GenerateStoreButtons() {
 		//TODO: Buttons with their JLabels will be generated here. Each button will contain information about a specific item retrieved from the database.
 		// Clicking on the "view" button will instantiate the DetailView. Information from the item will be transferred to this view.

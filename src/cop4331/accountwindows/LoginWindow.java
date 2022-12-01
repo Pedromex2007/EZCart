@@ -35,6 +35,7 @@ public class LoginWindow extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @author Rafael Luviano
 	 */
 	public LoginWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
