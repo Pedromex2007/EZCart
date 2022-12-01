@@ -1,4 +1,4 @@
-package store;
+package cop4331.storewindows;
 
 import java.awt.EventQueue;
 

@@ -1,4 +1,4 @@
-package account;
+package cop4331.accountwindows;
 
 import java.awt.EventQueue;
 
