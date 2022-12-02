@@ -27,11 +27,11 @@ public class LoginWindow extends JFrame {
 	private JTextField fieldPassword;
 
 	/**
-	 * Launch the application.
+	 * Launch the application. The magic all starts RIGHT here!
 	 */
 	public static void main(String[] args) {
 		
-		Database mainData = new Database();
+		Database data = new Database();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -43,6 +43,7 @@ public class LoginWindow extends JFrame {
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -58,12 +59,7 @@ public class LoginWindow extends JFrame {
 		
 		JButton btnLogin = new JButton("Login");
 		btnLogin.setBounds(154, 160, 123, 23);
-		btnLogin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				BrowseView.ShowBrowseView();
-				DestroyLoginWindow();
-			}
-		});
+
 		contentPane.setLayout(null);
 		contentPane.add(btnLogin);
 		
@@ -93,6 +89,18 @@ public class LoginWindow extends JFrame {
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(61, 112, 73, 14);
 		contentPane.add(lblPassword);
+		
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if(Database.Instance.VerifyAccountInformation(fieldUsername.getText(), fieldPassword.getText())) {
+					BrowseView.ShowBrowseView();
+					DestroyLoginWindow();
+				}
+
+			}
+		});
+		
 	}
 	
 	private void DestroyLoginWindow() {
