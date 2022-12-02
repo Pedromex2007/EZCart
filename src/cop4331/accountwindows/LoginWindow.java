@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import cop4331.database.Database;
 import cop4331.storewindows.BrowseView;
 
 import javax.swing.JButton;
@@ -29,6 +30,9 @@ public class LoginWindow extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+		Database mainData = new Database();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
