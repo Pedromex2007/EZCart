@@ -20,7 +20,7 @@ public class BrowseView extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void ShowBrowseView() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {

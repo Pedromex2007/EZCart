@@ -5,6 +5,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cop4331.storewindows.BrowseView;
+
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -49,7 +52,8 @@ public class LoginWindow extends JFrame {
 		btnLogin.setBounds(154, 160, 123, 23);
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				BrowseView.ShowBrowseView();
+				DestroyLoginWindow();
 			}
 		});
 		contentPane.setLayout(null);
@@ -81,5 +85,9 @@ public class LoginWindow extends JFrame {
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(61, 112, 73, 14);
 		contentPane.add(lblPassword);
+	}
+	
+	private void DestroyLoginWindow() {
+		this.dispose();
 	}
 }
