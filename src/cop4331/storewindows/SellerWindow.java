@@ -10,6 +10,11 @@ import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
+/**
+ * 
+ * @author Rafael Luviano
+ *
+ */
 public class SellerWindow extends JFrame {
 
 	private JPanel contentPane;

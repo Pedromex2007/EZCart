@@ -9,6 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+/**
+ * 
+ * @author Rafael Luviano
+ *
+ */
 public class CreateAccountWindow extends JFrame {
 
 	private JPanel contentPane;
@@ -34,7 +39,6 @@ public class CreateAccountWindow extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @author Rafael Luviano
 	 */
 	public CreateAccountWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

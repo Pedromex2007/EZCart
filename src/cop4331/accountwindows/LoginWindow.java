@@ -14,6 +14,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
+/**
+ * 
+ * @author Rafael Luviano
+ *
+ */
 public class LoginWindow extends JFrame {
 
 	private JPanel contentPane;
@@ -38,7 +43,6 @@ public class LoginWindow extends JFrame {
 
 	/**
 	 * Create the frame.
-	 * @author Rafael Luviano
 	 */
 	public LoginWindow() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

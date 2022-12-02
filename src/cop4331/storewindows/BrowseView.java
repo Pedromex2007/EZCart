@@ -13,6 +13,11 @@ import java.awt.Color;
 import java.awt.CardLayout;
 import javax.swing.JLabel;
 
+/**
+ * 
+ * @author Rafael Luviano
+ *
+ */
 public class BrowseView extends JFrame {
 
 	private JPanel masterPanel;
