@@ -5,9 +5,14 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cop4331.database.Database;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -50,6 +55,7 @@ public class CreateAccountWindow extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnRegister = new JButton("Register");
+
 		btnRegister.setBounds(10, 227, 89, 23);
 		contentPane.add(btnRegister);
 		
@@ -79,6 +85,18 @@ public class CreateAccountWindow extends JFrame {
 		fieldEmail.setColumns(10);
 		fieldEmail.setBounds(87, 62, 143, 20);
 		contentPane.add(fieldEmail);
+		
+		btnRegister.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Database.Instance.RegisterAccount(fieldUsername.getText(), fieldPassword.getText(), fieldEmail.getText());
+				DestroyRegisterWindow();
+			}
+		});
+		
+	}
+	
+	private void DestroyRegisterWindow() {
+		this.dispose();
 	}
 
 }

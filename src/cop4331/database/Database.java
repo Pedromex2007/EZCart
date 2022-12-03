@@ -19,14 +19,15 @@ import cop4331.accountwindows.Account;
 public class Database {
 	
 	public static Database Instance;
+
 	
 	private ArrayList<Account> activeAccounts = new ArrayList<Account>();
 	
 	private BufferedReader inventoryDatabaseReader;
 	private BufferedReader userDatabaseReader;
 	
-	private FileWriter inventoryDatabaseWriter;
-	private FileWriter userDatabaseWriter;
+	private File inventoryDatabase;
+	private File userDatabase;
 	
 	/**
 	 * Instantiate the database and connect to our csv files.
@@ -39,6 +40,8 @@ public class Database {
 			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));  
 			userDatabaseReader = new BufferedReader(new FileReader("userList.csv"));  
 			
+			userDatabase = new File("userList.csv");
+			
 			Load();
 
 			
@@ -49,14 +52,6 @@ public class Database {
 			e.printStackTrace();  
 		}  
 
-
- 
-        
-        /*try {
-			inventoryDatabaseWriter = new FileWriter("inventoryList.csv");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
         
 	}
 	
@@ -112,5 +107,63 @@ public class Database {
 		
 		return false;
 		
+	}
+	
+	/**
+	 * Create a new account based on the parameters fed to the method.
+	 * @param username Username of the new account.
+	 * @param password Password of the new account.
+	 * @param email Email of the new account.
+	 */
+	public void RegisterAccount(String username, String password, String email) {
+        
+        String[] accountDetails = new String[3];
+        accountDetails[0] = username;
+        accountDetails[1] = password;
+        accountDetails[2] = email;
+        
+        activeAccounts.add(new Account(username, password, email));	
+
+        FileWriter fileWriter = null;
+        
+		try {
+			
+			fileWriter = new FileWriter(userDatabase, true);
+			
+		} catch (IOException e) {
+
+			e.printStackTrace();
+			
+		}
+
+
+
+        StringBuilder line = new StringBuilder();
+        
+        for (int i = 0; i < accountDetails.length; i++) {
+        	
+            //line.append("\"");
+            line.append(accountDetails[i].replaceAll("\"","\"\""));
+            //line.append("\"");
+            if (i != accountDetails.length - 1) {
+                line.append(',');
+            }
+            
+        }
+        
+        line.append("\n");
+        
+        try {
+			fileWriter.write(line.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+        try {
+			fileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
 	}
 }
