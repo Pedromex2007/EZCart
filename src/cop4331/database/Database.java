@@ -22,6 +22,7 @@ public class Database {
 
 	
 	private ArrayList<Account> activeAccounts = new ArrayList<Account>();
+	private ArrayList<Product> activeProducts = new ArrayList<Product>();
 	
 	private BufferedReader inventoryDatabaseReader;
 	private BufferedReader userDatabaseReader;
@@ -84,8 +85,80 @@ public class Database {
 		
 	}
 	
-	private void LoadInventoryItems() {
+	private void CreateNewProduct() {
 		
+        String[] productDetails = new String[5];
+
+        
+        activeProducts.add(null);	
+
+        FileWriter fileWriter = null;
+        
+		try {
+			
+			fileWriter = new FileWriter(inventoryDatabase, true);
+			
+		} catch (IOException e) {
+
+			e.printStackTrace();
+			
+		}
+
+
+
+        StringBuilder line = new StringBuilder();
+        
+        for (int i = 0; i < productDetails.length; i++) {
+        	
+            line.append(productDetails[i].replaceAll("\"","\"\""));
+            if (i != productDetails.length - 1) {
+                line.append(',');
+            }
+            
+        }
+        
+        line.append("\n");
+        
+        try {
+			fileWriter.write(line.toString());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+        try {
+			fileWriter.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        
+	}
+	
+	private void LoadInventoryItems() {
+		String line = "";  
+		String splitBy = ",";  
+		
+		try {
+			while ((line = inventoryDatabaseReader.readLine()) != null) {  
+				
+				String[] le_line = line.split(splitBy);
+				System.out.println(le_line[0] + ", " );  
+				
+				try {
+					activeProducts.add(new DiscountedProduct(
+						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), Float.parseFloat(le_line[5]))
+					);
+				} catch (Exception e) {
+					// Not a discounted product. Adding regular product.
+					activeProducts.add(new Product(
+						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]))
+					);
+				}
+
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
 	}
 	
 	/**
