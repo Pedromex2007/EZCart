@@ -22,7 +22,7 @@ public class Database {
 
 	
 	private ArrayList<Account> activeAccounts = new ArrayList<Account>();
-	private ArrayList<Product> activeProducts = new ArrayList<Product>();
+	public ArrayList<Product> activeProducts = new ArrayList<Product>();
 	
 	private BufferedReader inventoryDatabaseReader;
 	private BufferedReader userDatabaseReader;

@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cop4331.database.Database;
+import cop4331.database.Product;
+
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -78,7 +82,24 @@ public class BrowseView extends JFrame {
 		// Clicking on the "view" button will instantiate the DetailView. Information from the item will be transferred to this view.
 		
 		//The for loop is an example on how to instantiate each container. We would iterate over each item our database has instead.
-		for(int i = 0; i < 10; i++) {
+		for(Product product : Database.Instance.activeProducts) {
+			JPanel subPanel = new JPanel();
+			masterPanel.add(subPanel);
+			subPanel.setLayout(new GridLayout(0, 2, 0, 0));
+			
+			JLabel lblNewLabel = new JLabel(product.getName());
+			subPanel.add(lblNewLabel);
+			
+			JButton btnView = new JButton("View");
+			subPanel.add(btnView);
+			
+			JLabel lblItemprice = new JLabel(Float.toString(product.getSellPrice()));
+			subPanel.add(lblItemprice);
+			
+			JButton btnAddToCart = new JButton("Add to Cart");
+			subPanel.add(btnAddToCart);
+		}
+		/*for(int i = 0; i < Database.Instance.activeProducts.size(); i++) {
 			JPanel subPanel = new JPanel();
 			masterPanel.add(subPanel);
 			subPanel.setLayout(new GridLayout(0, 2, 0, 0));
@@ -94,7 +115,7 @@ public class BrowseView extends JFrame {
 			
 			JButton btnAddToCart = new JButton("Add to Cart");
 			subPanel.add(btnAddToCart);
-		}
+		}*/
 	}
 
 }
