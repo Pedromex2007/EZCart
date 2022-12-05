@@ -62,7 +62,7 @@ public class Database {
 	 */
 	public void Load() {
 		LoadAccounts();
-		//LoadInventoryItems();
+		LoadInventoryItems();
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public class Database {
 		
 	}
 	
-	public void CreateProductDatabase(Product product) {
+	public void CreateProductEntryDatabase(Product product) {
 		
         String[] productDetails = new String[7];
         productDetails[0] = Integer.toString(product.getProductID());

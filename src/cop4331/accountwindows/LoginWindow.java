@@ -35,8 +35,6 @@ public class LoginWindow extends JFrame {
 	public static void main(String[] args) {
 		
 		Database data = new Database();
-		Product test = new Product(1, "Test Product", 5.99f, 5.99f, 1, "Sneedus");
-		data.CreateProductDatabase(test);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
