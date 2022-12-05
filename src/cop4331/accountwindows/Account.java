@@ -1,7 +1,8 @@
 package cop4331.accountwindows;
 
 public class Account {
-	public static Account activeAccount;
+	// This is the account we're logged into.
+	public static Account loggedAccount;
 	
 	private String accountUsername;
 	private String accountPassword;

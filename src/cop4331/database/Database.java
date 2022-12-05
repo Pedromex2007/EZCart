@@ -42,6 +42,7 @@ public class Database {
 			userDatabaseReader = new BufferedReader(new FileReader("userList.csv"));  
 			
 			userDatabase = new File("userList.csv");
+			inventoryDatabase = new File("inventoryList.csv");
 			
 			Load();
 
@@ -61,7 +62,7 @@ public class Database {
 	 */
 	public void Load() {
 		LoadAccounts();
-		LoadInventoryItems();
+		//LoadInventoryItems();
 	}
 	
 	/**
@@ -85,9 +86,27 @@ public class Database {
 		
 	}
 	
-	private void CreateNewProduct() {
+	public void CreateProductDatabase(Product product) {
 		
-        String[] productDetails = new String[5];
+        String[] productDetails = new String[7];
+        productDetails[0] = Integer.toString(product.getProductID());
+        productDetails[1] = product.getName();
+        productDetails[2] = Float.toString(product.getSellPrice());
+        productDetails[3] = Float.toString(product.getInvoicePrice());
+        productDetails[4] = Integer.toString(product.getQuantity());
+        productDetails[5] = product.getSellerName();
+        
+        try {
+        	
+        	DiscountedProduct discProd = (DiscountedProduct)product;
+        	productDetails[6] = Float.toString(discProd.getSellPrice());
+        	
+        } catch (ClassCastException e) {
+        	
+        	System.out.println("This is not a discounted product. Disregarding.");
+        	productDetails[6] = null;
+        	
+        }
 
         
         activeProducts.add(null);	
@@ -109,6 +128,8 @@ public class Database {
         StringBuilder line = new StringBuilder();
         
         for (int i = 0; i < productDetails.length; i++) {
+        	
+        	if(productDetails[i] == null) continue;
         	
             line.append(productDetails[i].replaceAll("\"","\"\""));
             if (i != productDetails.length - 1) {
@@ -145,12 +166,12 @@ public class Database {
 				
 				try {
 					activeProducts.add(new DiscountedProduct(
-						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), Float.parseFloat(le_line[5]))
+						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
 					);
 				} catch (Exception e) {
 					// Not a discounted product. Adding regular product.
 					activeProducts.add(new Product(
-						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]))
+						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
 					);
 				}
 
@@ -173,7 +194,7 @@ public class Database {
 
 			if(account.getUsername().equals(username) && account.getPassword().equals(password)) {
 				System.out.println("Login successful.");
-				Account.activeAccount = account;
+				Account.loggedAccount = account;
 				return true;
 			}
 		}

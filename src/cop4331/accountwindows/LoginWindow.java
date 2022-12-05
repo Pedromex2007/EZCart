@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import cop4331.database.Database;
+import cop4331.database.Product;
 import cop4331.storewindows.BrowseView;
 
 import javax.swing.JButton;
@@ -34,6 +35,8 @@ public class LoginWindow extends JFrame {
 	public static void main(String[] args) {
 		
 		Database data = new Database();
+		Product test = new Product(1, "Test Product", 5.99f, 5.99f, 1, "Sneedus");
+		data.CreateProductDatabase(test);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

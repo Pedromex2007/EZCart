@@ -7,6 +7,7 @@ public class Product {
 	private float sellPrice;
 	private float invoicePrice;
 	private int quantity;
+	private String sellerProducer;
 	private String type;
 	
 	public String getName() { return name; }
@@ -24,12 +25,15 @@ public class Product {
 	public String getType() { return type; }
 	public int getProductID() { return id; }
 	
-	public Product(int id, String name, float sellPrice, float invoicePrice, int quantity) {
+	public String getSellerName() { return sellerProducer; }
+	
+	public Product(int id, String name, float sellPrice, float invoicePrice, int quantity, String sellerProducer) {
 		this.id = id;
 		this.name = name;
 		this.sellPrice = sellPrice;
 		this.invoicePrice = invoicePrice;
 		this.quantity = quantity;
+		this.sellerProducer = sellerProducer;
 	}
 	
 }

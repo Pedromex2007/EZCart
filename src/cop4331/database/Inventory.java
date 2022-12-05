@@ -11,6 +11,7 @@ public class Inventory {
 	}
 	
 	public void RemoveProduct(int productID) {
+		
 		for(Product product : products) {
 			
 			if(product.getProductID() == productID) {
@@ -19,6 +20,7 @@ public class Inventory {
 			}
 			
 		}
+		
 	}
 	
 	public ArrayList<Product> GetProducts() {

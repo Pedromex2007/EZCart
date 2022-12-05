@@ -9,8 +9,8 @@ public class DiscountedProduct extends Product {
 
 	private float discount;
 	
-	public DiscountedProduct(int id, String name, float sellPrice, float invoicePrice, int quantity, float discount) {
-		super(id, name, sellPrice, invoicePrice, quantity);
+	public DiscountedProduct(int id, String name, float sellPrice, float invoicePrice, int quantity, String sellerProducer, float discount) {
+		super(id, name, sellPrice, invoicePrice, quantity, sellerProducer);
 		this.discount = discount;
 	}
 	
