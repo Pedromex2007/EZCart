@@ -8,6 +8,7 @@ public class Seller extends Account {
 
 	public Seller(String username, String password, String email) {
 		super(username, password, email);
+		
 	}
 	
 	public Inventory getInventory() { return inventory; }

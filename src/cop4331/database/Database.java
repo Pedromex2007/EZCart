@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import cop4331.accountwindows.Account;
+import cop4331.accountwindows.Seller;
 
 /**
  * 
@@ -73,6 +74,7 @@ public class Database {
 		String splitBy = ",";  
 		
 		try {
+			
 			while ((line = userDatabaseReader.readLine()) != null) {  
 				
 				String[] le_line = line.split(splitBy);
@@ -80,12 +82,17 @@ public class Database {
 				activeAccounts.add(new Account(le_line[0], le_line[1], le_line[2]));	
 				
 			}
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
 		
 	}
 	
+	/**
+	 * Create a new entry in our csv "database" containing the information of the specific product.
+	 * @param product Product to introduce into the csv sheet
+	 */
 	public void CreateProductEntryDatabase(Product product) {
 		
         String[] productDetails = new String[7];
@@ -168,11 +175,13 @@ public class Database {
 					activeProducts.add(new DiscountedProduct(
 						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
 					);
+					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
 				} catch (Exception e) {
 					// Not a discounted product. Adding regular product.
 					activeProducts.add(new Product(
 						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
 					);
+					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
 				}
 
 				
@@ -180,6 +189,24 @@ public class Database {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
+	}
+	
+	private void PopulateSellerInventory(Product product) {
+		for(Account account : activeAccounts) {
+			
+			try {
+				Seller sellAccount = (Seller)account;
+				
+				if(product.getSellerName().equals(sellAccount.getUsername())) {
+					sellAccount.getInventory().AddProduct(product);
+				}
+
+			} catch (ClassCastException e) {
+				continue;
+			}
+			
+
+		}
 	}
 	
 	/**

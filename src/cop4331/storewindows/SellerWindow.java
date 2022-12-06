@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -69,6 +71,13 @@ public class SellerWindow extends JFrame {
 		contentPane_1_1.setLayout(null);
 		
 		JButton btnAddProduct = new JButton("Add New Product");
+		btnAddProduct.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				NewProductWindow.ShowNewProductWindow();
+				
+			}
+		});
 		btnAddProduct.setBounds(10, 11, 171, 53);
 		contentPane_1_1.add(btnAddProduct);
 		

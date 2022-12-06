@@ -1,5 +1,7 @@
 package cop4331.database;
 
+import cop4331.accountwindows.Seller;
+
 public class Product {
 
 	private int id;

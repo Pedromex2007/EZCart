@@ -81,7 +81,7 @@ public class BrowseView extends JFrame {
 		//TODO: Buttons with their JLabels will be generated here. Each button will contain information about a specific item retrieved from the database.
 		// Clicking on the "view" button will instantiate the DetailView. Information from the item will be transferred to this view.
 		
-		//The for loop is an example on how to instantiate each container. We would iterate over each item our database has instead.
+		// Instantiate each button.
 		for(Product product : Database.Instance.activeProducts) {
 			JPanel subPanel = new JPanel();
 			masterPanel.add(subPanel);
@@ -99,23 +99,7 @@ public class BrowseView extends JFrame {
 			JButton btnAddToCart = new JButton("Add to Cart");
 			subPanel.add(btnAddToCart);
 		}
-		/*for(int i = 0; i < Database.Instance.activeProducts.size(); i++) {
-			JPanel subPanel = new JPanel();
-			masterPanel.add(subPanel);
-			subPanel.setLayout(new GridLayout(0, 2, 0, 0));
-			
-			JLabel lblNewLabel = new JLabel("ITEM_NAME:");
-			subPanel.add(lblNewLabel);
-			
-			JButton btnView = new JButton("View");
-			subPanel.add(btnView);
-			
-			JLabel lblItemprice = new JLabel("ITEM_PRICE:");
-			subPanel.add(lblItemprice);
-			
-			JButton btnAddToCart = new JButton("Add to Cart");
-			subPanel.add(btnAddToCart);
-		}*/
+
 	}
 
 }
