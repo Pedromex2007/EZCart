@@ -154,15 +154,11 @@ public class Database {
         
         try {
 			fileWriter.write(line.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-        try {
 			fileWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+        
         
 	}
 	
