@@ -174,7 +174,7 @@ public class Database {
 		}
 		
 		
-		
+		LoadInventoryItems();
 		
 	}
 	
@@ -214,6 +214,8 @@ public class Database {
 	private void LoadInventoryItems() {
 		String line = "";  
 		String splitBy = ",";  
+		
+		activeProducts.clear();
 		
 		try {
 			while ((line = inventoryDatabaseReader.readLine()) != null) {  

@@ -36,10 +36,10 @@ public class LoginWindow extends JFrame {
 		
 		Database data = new Database();
 		
-		Product org = new Product(1, "Test", 0.1f, 0.1f, 5, "Sneedus");
-		Product newOrg = new Product(1, "Product", 0.7f, 0.7f, 10, "Sneedus");
+		//Product org = new Product(1, "Test", 0.1f, 0.1f, 5, "Sneedus");
+		//Product newOrg = new Product(1, "Product", 0.7f, 0.7f, 10, "Sneedus");
 		
-		data.EditProductInformationDatabase(org, newOrg);
+		//data.EditProductInformationDatabase(org, newOrg);
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
