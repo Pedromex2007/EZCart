@@ -166,6 +166,9 @@ public class Database {
         
 	}
 	
+	/**
+	 * Load all of the product items in our bootleg database, aka the csv files, and add them into memory.
+	 */
 	private void LoadInventoryItems() {
 		String line = "";  
 		String splitBy = ",";  
@@ -195,7 +198,10 @@ public class Database {
 			e.printStackTrace();
 		}  
 	}
-	
+	/**
+	 * Populate each seller's inventory with products that they were responsible for posting.
+	 * @param product Product to link  with seller account.
+	 */
 	private void PopulateSellerInventory(Product product) {
 		for(Account account : activeAccounts) {
 			
