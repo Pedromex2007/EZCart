@@ -101,15 +101,40 @@ public class SellerWindow extends JFrame {
 	 * Get a list of of all the products posted by the user viewing this page.
 	 */
 	private void GenerateListedProducts(JPanel subPanel) {
+		class ProductButton extends JButton {
+
+			Product product;
+			
+			public ProductButton(Product product) {
+				this.product = product;
+
+				//JLabel lblName = new JLabel(product.getName());
+				//subPanel.add(lblName);
+				this.setText("Edit this Product");
+				subPanel.add(this);
+			}
+		}
+		
 		Seller sellerCast = (Seller)Account.loggedAccount;
 		
 		for(Product product : sellerCast.getInventory().GetProducts()) {
 			
+			
 			JLabel lblName = new JLabel(product.getName());
 			subPanel.add(lblName);
 			
-			JButton btnEditProduct = new JButton("Edit this Product");
-			subPanel.add(btnEditProduct);
+			ProductButton prodBtn = new ProductButton(product);
+			prodBtn.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					System.out.println("It worked!");
+					
+				}
+			});
+			
+			//JButton btnEditProduct = new JButton("Edit this Product");
+			//subPanel.add(btnEditProduct);
+			
 			
 		}
 		
