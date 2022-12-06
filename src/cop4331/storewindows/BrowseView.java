@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import cop4331.accountwindows.Account;
+import cop4331.accountwindows.Seller;
 import cop4331.database.Database;
 import cop4331.database.Product;
 
@@ -16,6 +18,8 @@ import javax.swing.JLayeredPane;
 import java.awt.Color;
 import java.awt.CardLayout;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  * 
@@ -53,10 +57,14 @@ public class BrowseView extends JFrame {
 		masterPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(masterPanel);
-		masterPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		masterPanel.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 55, 725, 395);
+		masterPanel.add(panel);
 		
 		JPanel subPanel = new JPanel();
-		masterPanel.add(subPanel);
+		panel.add(subPanel);
 		subPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JLabel lblNewLabel = new JLabel("ITEM_NAME:");
@@ -70,7 +78,24 @@ public class BrowseView extends JFrame {
 		
 		JButton btnAddToCart = new JButton("Add to Cart");
 		subPanel.add(btnAddToCart);
-		GenerateStoreButtons();
+		
+		if(Account.loggedAccount instanceof Seller) {
+			
+			JButton btnViewSellPage = new JButton("View Seller Page");
+
+			btnViewSellPage.setBounds(584, 11, 151, 33);
+			masterPanel.add(btnViewSellPage);
+			GenerateStoreButtons();
+			
+			btnViewSellPage.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					SellerWindow.ShowSellerWindow();
+					DestroyWindow();
+				}
+			});
+			
+		}
+		
 	}
 	
 	/**
@@ -100,6 +125,10 @@ public class BrowseView extends JFrame {
 			subPanel.add(btnAddToCart);
 		}
 
+	}
+	
+	private void DestroyWindow() {
+		this.dispose();
 	}
 
 }

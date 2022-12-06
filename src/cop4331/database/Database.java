@@ -79,7 +79,12 @@ public class Database {
 				
 				String[] le_line = line.split(splitBy);
 				System.out.println(le_line[0] + ", " );  
-				activeAccounts.add(new Account(le_line[0], le_line[1], le_line[2]));	
+				
+				if(le_line[3].equals("Seller")) {
+					activeAccounts.add(new Seller(le_line[0], le_line[1], le_line[2]));
+				} else {
+					activeAccounts.add(new Account(le_line[0], le_line[1], le_line[2]));
+				}
 				
 			}
 			
@@ -238,10 +243,11 @@ public class Database {
 	 */
 	public void RegisterAccount(String username, String password, String email) {
         
-        String[] accountDetails = new String[3];
+        String[] accountDetails = new String[4];
         accountDetails[0] = username;
         accountDetails[1] = password;
         accountDetails[2] = email;
+        accountDetails[3] = "User";
         
         activeAccounts.add(new Account(username, password, email));	
 
