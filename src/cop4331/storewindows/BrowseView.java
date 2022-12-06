@@ -79,13 +79,14 @@ public class BrowseView extends JFrame {
 		JButton btnAddToCart = new JButton("Add to Cart");
 		subPanel.add(btnAddToCart);
 		
+		GenerateStoreButtons(panel);
+		
 		if(Account.loggedAccount instanceof Seller) {
 			
 			JButton btnViewSellPage = new JButton("View Seller Page");
 
 			btnViewSellPage.setBounds(584, 11, 151, 33);
 			masterPanel.add(btnViewSellPage);
-			GenerateStoreButtons();
 			
 			btnViewSellPage.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -96,20 +97,22 @@ public class BrowseView extends JFrame {
 			
 		}
 		
+		
 	}
 	
 	/**
 	 * Create panels that contain all items from our database.
 	 * @author Rafael Luviano
 	 */
-	private void GenerateStoreButtons() {
+	private void GenerateStoreButtons(JPanel firstPanel) {
 		//TODO: Buttons with their JLabels will be generated here. Each button will contain information about a specific item retrieved from the database.
 		// Clicking on the "view" button will instantiate the DetailView. Information from the item will be transferred to this view.
 		
 		// Instantiate each button.
 		for(Product product : Database.Instance.activeProducts) {
+			System.out.println("Something, yknow.");
 			JPanel subPanel = new JPanel();
-			masterPanel.add(subPanel);
+			firstPanel.add(subPanel);
 			subPanel.setLayout(new GridLayout(0, 2, 0, 0));
 			
 			JLabel lblNewLabel = new JLabel(product.getName());
