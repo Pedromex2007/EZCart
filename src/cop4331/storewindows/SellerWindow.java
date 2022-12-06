@@ -5,6 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import cop4331.accountwindows.Account;
+import cop4331.accountwindows.Seller;
+import cop4331.database.Product;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
@@ -58,11 +63,13 @@ public class SellerWindow extends JFrame {
 		contentPane_1.add(panel);
 		panel.setLayout(new GridLayout(0, 4, 0, 0));
 		
-		JLabel lblName = new JLabel("PRODUCT_NAME:");
+		/*JLabel lblName = new JLabel("PRODUCT_NAME:");
 		panel.add(lblName);
 		
 		JButton btnEditProduct = new JButton("Edit this Product");
-		panel.add(btnEditProduct);
+		panel.add(btnEditProduct);*/
+		
+		GenerateListedProducts(panel);
 		
 		JPanel contentPane_1_1 = new JPanel();
 		contentPane_1_1.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -93,7 +100,18 @@ public class SellerWindow extends JFrame {
 	/**
 	 * Get a list of of all the products posted by the user viewing this page.
 	 */
-	private void GetListedProducts() {
-		//TODO: Make our bootleg SQL language
+	private void GenerateListedProducts(JPanel subPanel) {
+		Seller sellerCast = (Seller)Account.loggedAccount;
+		
+		for(Product product : sellerCast.getInventory().GetProducts()) {
+			
+			JLabel lblName = new JLabel(product.getName());
+			subPanel.add(lblName);
+			
+			JButton btnEditProduct = new JButton("Edit this Product");
+			subPanel.add(btnEditProduct);
+			
+		}
+		
 	}
 }
