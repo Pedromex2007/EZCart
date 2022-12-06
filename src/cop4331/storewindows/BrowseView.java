@@ -105,15 +105,45 @@ public class BrowseView extends JFrame {
 	 * @author Rafael Luviano
 	 */
 	private void GenerateStoreButtons(JPanel firstPanel) {
+		
+		class ProductButton extends JPanel {
+
+			Product product;
+			
+			public ProductButton(Product product) {
+				this.product = product;
+				
+				firstPanel.add(this);
+				this.setLayout(new GridLayout(0, 2, 0, 0));
+				
+				JLabel lblNewLabel = new JLabel(product.getName());
+				this.add(lblNewLabel);
+				
+				JButton btnView = new JButton("View");
+				this.add(btnView);
+				
+				JLabel lblItemprice = new JLabel(Float.toString(product.getSellPrice()));
+				this.add(lblItemprice);
+				
+				JButton btnAddToCart = new JButton("Add to Cart");
+				this.add(btnAddToCart);
+			}
+		}
+		
 		//TODO: Buttons with their JLabels will be generated here. Each button will contain information about a specific item retrieved from the database.
 		// Clicking on the "view" button will instantiate the DetailView. Information from the item will be transferred to this view.
 		
 		// Instantiate each button.
 		for(Product product : Database.Instance.activeProducts) {
 			System.out.println("Something, yknow.");
-			JPanel subPanel = new JPanel();
-			firstPanel.add(subPanel);
-			subPanel.setLayout(new GridLayout(0, 2, 0, 0));
+			
+			
+			//JPanel subPanel = new JPanel();
+			
+			ProductButton prodBtn = new ProductButton(product);
+			firstPanel.add(prodBtn);
+			
+			/*subPanel.setLayout(new GridLayout(0, 2, 0, 0));
 			
 			JLabel lblNewLabel = new JLabel(product.getName());
 			subPanel.add(lblNewLabel);
@@ -125,7 +155,7 @@ public class BrowseView extends JFrame {
 			subPanel.add(lblItemprice);
 			
 			JButton btnAddToCart = new JButton("Add to Cart");
-			subPanel.add(btnAddToCart);
+			subPanel.add(btnAddToCart);*/
 		}
 
 	}
@@ -135,3 +165,4 @@ public class BrowseView extends JFrame {
 	}
 
 }
+

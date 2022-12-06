@@ -64,6 +64,7 @@ public class Database {
 	public void Load() {
 		LoadAccounts();
 		LoadInventoryItems();
+		//EditProductInformationDatabase();
 	}
 	
 	/**
@@ -121,46 +122,91 @@ public class Database {
         }
 
         
-        activeProducts.add(null);	
-
-        FileWriter fileWriter = null;
+        activeProducts.add(product);	
         
-		try {
-			
-			fileWriter = new FileWriter(inventoryDatabase, true);
-			
-		} catch (IOException e) {
-
-			e.printStackTrace();
-			
-		}
-
-
-
-        StringBuilder line = new StringBuilder();
-        
-        for (int i = 0; i < productDetails.length; i++) {
-        	
-        	if(productDetails[i] == null) continue;
-        	
-            line.append(productDetails[i].replaceAll("\"","\"\""));
-            if (i != productDetails.length - 1) {
-                line.append(',');
-            }
-            
-        }
-        
-        line.append("\n");
-        
-        try {
-			fileWriter.write(line.toString());
-			fileWriter.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        WriteToCSV(productDetails, inventoryDatabase, true);
         
         
 	}
+	
+	
+	public void EditProductInformationDatabase(Product originalProduct, Product newProduct) {
+		
+		try {
+			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}  
+		
+		ArrayList<String[]> csvLines = GetCSVLines(inventoryDatabaseReader);
+		
+		
+		
+		for(String[] lineString : csvLines) {
+			
+			if(Integer.parseInt(lineString[0]) == originalProduct.getProductID()) {
+				lineString[1] = newProduct.getName();
+				lineString[2] = Float.toString(newProduct.getSellPrice());
+				lineString[3] = Float.toString(newProduct.getInvoicePrice());
+				lineString[4] = Integer.toString(newProduct.getQuantity());
+				
+		        try {
+		        	
+		        	DiscountedProduct discProd = (DiscountedProduct)newProduct;
+		        	lineString[6] = Float.toString(discProd.getSellPrice());
+		        	
+		        } catch (ClassCastException e) {
+		        	
+		        }
+
+				break;
+			}			
+			
+		}
+		
+		//This will override everything and starting recreating the database.
+		//Only way to edit/remove things from the file apparently.
+		boolean append = false;
+		
+		for(String[] innerLine : csvLines) {
+			WriteToCSV(innerLine, inventoryDatabase, append);
+			append = true;
+		}
+		
+		
+		
+		
+	}
+	
+	/***
+	 * Get every line from a specific CSV file and turn it into an ArrayList. Useful or editing or deleting rows.
+	 * @param csvFile
+	 * @return ArrayList of every line from a CSV file.
+	 */
+	private ArrayList<String[]> GetCSVLines(BufferedReader csvFile) {
+		
+		ArrayList<String[]> csvLines = new ArrayList<String[]>();
+		String line = "";  
+		String splitBy = ",";  
+		
+		try {
+			while ((line = inventoryDatabaseReader.readLine()) != null) {  
+				
+				String[] le_line = line.split(splitBy);
+				csvLines.add(le_line);
+				System.out.println(le_line[0] + ", " );  
+
+				
+			}
+			
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return csvLines;
+	}
+	
 	
 	/**
 	 * Load all of the product items in our bootleg database, aka the csv files, and add them into memory.
@@ -173,7 +219,7 @@ public class Database {
 			while ((line = inventoryDatabaseReader.readLine()) != null) {  
 				
 				String[] le_line = line.split(splitBy);
-				System.out.println(le_line[0] + ", " );  
+				//System.out.println(le_line[0] + ", " );  
 				
 				try {
 					activeProducts.add(new DiscountedProduct(
@@ -253,11 +299,23 @@ public class Database {
         
         activeAccounts.add(new Account(username, password, email));	
 
+        WriteToCSV(accountDetails, userDatabase, true);
+        
+	}
+	
+	/***
+	 * Take an array of strings which serve as a row. Append the row to an existing csv file, or override the whole thing.
+	 * @param stringLine
+	 * @param file
+	 * @param append
+	 */
+	private void WriteToCSV(String[] stringLine, File file, boolean append) {
+		
         FileWriter fileWriter = null;
         
 		try {
 			
-			fileWriter = new FileWriter(userDatabase, true);
+			fileWriter = new FileWriter(file, append);
 			
 		} catch (IOException e) {
 
@@ -269,12 +327,12 @@ public class Database {
 
         StringBuilder line = new StringBuilder();
         
-        for (int i = 0; i < accountDetails.length; i++) {
+        for (int i = 0; i < stringLine.length; i++) {
         	
             //line.append("\"");
-            line.append(accountDetails[i].replaceAll("\"","\"\""));
+            line.append(stringLine[i].replaceAll("\"","\"\""));
             //line.append("\"");
-            if (i != accountDetails.length - 1) {
+            if (i != stringLine.length - 1) {
                 line.append(',');
             }
             
@@ -284,15 +342,10 @@ public class Database {
         
         try {
 			fileWriter.write(line.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-        
-        try {
 			fileWriter.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        
+		
 	}
 }

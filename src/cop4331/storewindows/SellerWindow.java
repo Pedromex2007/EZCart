@@ -81,7 +81,7 @@ public class SellerWindow extends JFrame {
 		btnAddProduct.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				NewProductWindow.ShowNewProductWindow();
+				AddProductWindow.ShowAddProductWindow();
 				
 			}
 		});
