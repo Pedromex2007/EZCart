@@ -7,8 +7,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import cop4331.accountwindows.Account;
 import cop4331.accountwindows.Seller;
 
@@ -263,19 +261,6 @@ public class Database {
 						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
 					);
 				}
-				
-				/*try {
-					activeProducts.add(new DiscountedProduct(
-						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
-					);
-					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
-				} catch (Exception e) {
-					// Not a discounted product. Adding regular product.
-					activeProducts.add(new Product(
-						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
-					);
-					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
-				}*/
 
 				
 			}
