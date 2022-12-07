@@ -6,7 +6,7 @@ public class ShoppingCart extends Inventory {
 		
 		float finalCost = 0.00f;
 		
-		for(Product product : super.GetProducts()) {
+		for(Product product : this) {
 			finalCost += product.getSellPrice();
 		}
 		

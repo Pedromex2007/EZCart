@@ -121,7 +121,7 @@ public class SellerWindow extends JFrame {
 		
 		Seller sellerCast = (Seller)Account.loggedAccount;
 		
-		for(Product product : sellerCast.getInventory().GetProducts()) {
+		for(Product product : sellerCast.getInventory()) {
 			
 			
 			JLabel lblName = new JLabel(product.getName());
