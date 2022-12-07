@@ -109,6 +109,7 @@ public class Database {
         productDetails[4] = Integer.toString(product.getQuantity());
         productDetails[5] = product.getSellerName();
         
+        
         try {
         	
         	DiscountedProduct discProd = (DiscountedProduct)product;
@@ -117,7 +118,7 @@ public class Database {
         } catch (ClassCastException e) {
         	
         	System.out.println("This is not a discounted product. Disregarding.");
-        	productDetails[6] = null;
+        	productDetails[6] = "0";
         	
         }
 
@@ -164,6 +165,7 @@ public class Database {
 		        	
 		        } catch (ClassCastException e) {
 		        	System.out.println("Not a discounted product.");
+		        	lineString[6] = "0";
 		        }
 
 				break;
@@ -181,7 +183,7 @@ public class Database {
 		}
 		
 		
-		//LoadInventoryItems();
+		LoadInventoryItems();
 		
 	}
 	
@@ -230,7 +232,20 @@ public class Database {
 				String[] le_line = line.split(splitBy);
 				//System.out.println(le_line[0] + ", " );  
 				
-				try {
+				if(Float.parseFloat(le_line[6]) > 0) {
+					activeProducts.add(new DiscountedProduct(
+							Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
+						);
+					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
+				} else {
+					// Not a discounted product. Adding regular product.
+					activeProducts.add(new Product(
+						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
+					);
+					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
+				}
+				
+				/*try {
 					activeProducts.add(new DiscountedProduct(
 						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
 					);
@@ -241,7 +256,7 @@ public class Database {
 						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
 					);
 					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
-				}
+				}*/
 
 				
 			}
