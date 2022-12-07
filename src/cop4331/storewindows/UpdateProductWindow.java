@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import cop4331.database.Database;
 import cop4331.database.DiscountedProduct;
 import cop4331.database.Product;
+import cop4331.database.ShoppingCartSystem;
+import jdk.jfr.DataAmount;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JCheckBox;
@@ -132,6 +135,7 @@ public class UpdateProductWindow extends JFrame {
 		
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Database db = ShoppingCartSystem.getInstance().database;
 				if(chckbxDiscount.isSelected()) {
 				
 					DiscountedProduct newProduct = new DiscountedProduct(activeProduct, Float.parseFloat(textFieldDiscount.getText()));
@@ -143,7 +147,7 @@ public class UpdateProductWindow extends JFrame {
 					newProduct.setDiscount(Float.parseFloat(textFieldDiscount.getText()));
 					
 					
-					Database.Instance.EditProductInformationDatabase(activeProduct, newProduct);
+					db.EditProductInformationDatabase(activeProduct, newProduct);
 
 					
 				} else {
@@ -156,7 +160,7 @@ public class UpdateProductWindow extends JFrame {
 					//newProduct.setInvoicePrice(Float.parseFloat(textFieldPrice.getText()));
 					newProduct.setQuantity(Integer.parseInt(textFieldQuantity.getText()));
 					
-					Database.Instance.EditProductInformationDatabase(activeProduct, newProduct);
+					db.EditProductInformationDatabase(activeProduct, newProduct);
 
 					
 				}

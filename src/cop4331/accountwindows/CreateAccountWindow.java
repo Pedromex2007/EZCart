@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import cop4331.database.Database;
+import cop4331.database.ShoppingCartSystem;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -88,7 +89,8 @@ public class CreateAccountWindow extends JFrame {
 		
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Database.Instance.RegisterAccount(fieldUsername.getText(), fieldPassword.getText(), fieldEmail.getText());
+				Database db = ShoppingCartSystem.getInstance().database;
+				db.RegisterAccount(fieldUsername.getText(), fieldPassword.getText(), fieldEmail.getText());
 				DestroyRegisterWindow();
 			}
 		});

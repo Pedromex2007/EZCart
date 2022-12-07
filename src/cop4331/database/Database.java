@@ -16,10 +16,6 @@ import cop4331.accountwindows.Seller;
  *
  */
 public class Database {
-	
-	public static Database Instance;
-
-	
 	private ArrayList<Account> activeAccounts = new ArrayList<Account>();
 	public ArrayList<Product> activeProducts = new ArrayList<Product>();
 	
@@ -33,8 +29,6 @@ public class Database {
 	 * Instantiate the database and connect to our csv files.
 	 */
 	public Database() {
-		Instance = this;
-		
 		try   {  
 
 			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));  

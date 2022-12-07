@@ -10,6 +10,7 @@ import cop4331.accountwindows.Account;
 import cop4331.database.Database;
 import cop4331.database.DiscountedProduct;
 import cop4331.database.Product;
+import cop4331.database.ShoppingCartSystem;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -100,6 +101,7 @@ public class AddProductWindow extends JFrame {
 			
 			public void actionPerformed(ActionEvent e) {
 				Random rand = new Random();
+				Database db = ShoppingCartSystem.getInstance().database;
 				if(chckbxOnDiscount.isSelected()) {
 
 					DiscountedProduct product = new DiscountedProduct(
@@ -112,7 +114,7 @@ public class AddProductWindow extends JFrame {
 							Float.parseFloat(fieldDiscount.getText())
 					);
 					
-					Database.Instance.CreateProductEntryDatabase(product);
+					db.CreateProductEntryDatabase(product);
 				} else {
 					
 					Product product = new Product(
@@ -124,7 +126,7 @@ public class AddProductWindow extends JFrame {
 							Account.loggedAccount.getUsername()
 					);
 					
-					Database.Instance.CreateProductEntryDatabase(product);
+					db.CreateProductEntryDatabase(product);
 				}
 				
 				DestroyWindow();

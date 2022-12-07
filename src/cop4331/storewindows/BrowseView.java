@@ -10,6 +10,7 @@ import cop4331.accountwindows.Account;
 import cop4331.accountwindows.Seller;
 import cop4331.database.Database;
 import cop4331.database.Product;
+import cop4331.database.ShoppingCartSystem;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -134,7 +135,7 @@ public class BrowseView extends JFrame {
 		// Clicking on the "view" button will instantiate the DetailView. Information from the item will be transferred to this view.
 		
 		// Instantiate each button.
-		for(Product product : Database.Instance.activeProducts) {
+		for(Product product : ShoppingCartSystem.getInstance().database.activeProducts) {
 			System.out.println("Something, yknow.");
 			
 			
