@@ -142,7 +142,12 @@ public class Database {
 		
 		
 		
+		
+		
 		for(String[] lineString : csvLines) {
+			System.out.println("READING");
+			
+			System.out.println(Integer.parseInt(lineString[0]) + " | " + originalProduct.getProductID());
 			
 			if(Integer.parseInt(lineString[0]) == originalProduct.getProductID()) {
 				lineString[1] = newProduct.getName();
@@ -150,13 +155,15 @@ public class Database {
 				lineString[3] = Float.toString(newProduct.getInvoicePrice());
 				lineString[4] = Integer.toString(newProduct.getQuantity());
 				
+				System.out.println("I found it! Editing...");
+				
 		        try {
 		        	
 		        	DiscountedProduct discProd = (DiscountedProduct)newProduct;
 		        	lineString[6] = Float.toString(discProd.getSellPrice());
 		        	
 		        } catch (ClassCastException e) {
-		        	
+		        	System.out.println("Not a discounted product.");
 		        }
 
 				break;
@@ -174,7 +181,7 @@ public class Database {
 		}
 		
 		
-		LoadInventoryItems();
+		//LoadInventoryItems();
 		
 	}
 	
@@ -194,7 +201,7 @@ public class Database {
 				
 				String[] le_line = line.split(splitBy);
 				csvLines.add(le_line);
-				System.out.println(le_line[0] + ", " );  
+				//System.out.println(le_line[0] + ", " );  
 
 				
 			}

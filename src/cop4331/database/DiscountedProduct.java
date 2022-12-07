@@ -14,10 +14,19 @@ public class DiscountedProduct extends Product {
 		this.discount = discount;
 	}
 	
+	public DiscountedProduct(Product cloneProduct, float discount) {
+		super(cloneProduct);
+		this.discount = discount;
+	}
+	
+	public void setDiscount(float discount) {
+		this.discount = discount;
+	}
+	
 	@Override
 	public float getSellPrice() {
 		return super.getSellPrice() * discount; 
 	}
-
+	
 	
 }
