@@ -109,13 +109,12 @@ public class UpdateProductWindow extends JFrame {
 		contentPane.add(btnExit);
 		
 		textFieldName.setText(activeProduct.getName());
-		textFieldPrice.setText(Float.toString(activeProduct.getSellPrice()));
+		textFieldPrice.setText(Float.toString(activeProduct.getBasePrice()));
 		textFieldQuantity.setText(Integer.toString(activeProduct.getQuantity()));
 		
 		try {
 			
 			DiscountedProduct activeProdDisc = (DiscountedProduct) activeProduct;
-			textFieldPrice.setText(Float.toString(activeProdDisc.getBasePrice()));
 			textFieldDiscount.setText(Float.toString(activeProdDisc.getDiscountAmount()));
 			chckbxDiscount.setSelected(true);
 			
