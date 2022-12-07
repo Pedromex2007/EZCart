@@ -18,15 +18,23 @@ public class DiscountedProduct extends Product {
 		super(cloneProduct);
 		this.discount = discount;
 	}
+	public DiscountedProduct(DiscountedProduct cloneProduct) {
+		super(cloneProduct);
+		this.discount = cloneProduct.discount;
+	}
 	
 	public void setDiscount(float discount) {
 		this.discount = discount;
+	}
+	public float getDiscountAmount() {
+		return this.discount;
 	}
 	
 	@Override
 	public float getSellPrice() {
 		return super.getSellPrice() * discount; 
 	}
+	
 	
 	
 }

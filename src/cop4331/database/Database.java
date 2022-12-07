@@ -156,16 +156,16 @@ public class Database {
 			
 			if(Integer.parseInt(lineString[0]) == originalProduct.getProductID()) {
 				lineString[1] = newProduct.getName();
-				lineString[2] = Float.toString(newProduct.getSellPrice());
+				lineString[2] = Float.toString(newProduct.getBasePrice());
 				lineString[3] = Float.toString(newProduct.getInvoicePrice());
 				lineString[4] = Integer.toString(newProduct.getQuantity());
 				
-				System.out.println("I found it! Editing...");
+				//System.out.println("I found it! Editing...");
 				
 		        try {
 		        	
 		        	DiscountedProduct discProd = (DiscountedProduct)newProduct;
-		        	lineString[6] = Float.toString(discProd.getSellPrice());
+		        	lineString[6] = Float.toString(discProd.getDiscountAmount());
 		        	
 		        } catch (ClassCastException e) {
 		        	System.out.println("Not a discounted product.");
@@ -186,8 +186,26 @@ public class Database {
 			append = true;
 		}
 		
+		for(Product product : activeProducts) {
+			if(product.getProductID() == originalProduct.getProductID()) {
+				activeProducts.remove(product);
+				break;
+			}
+		}
 		
-		LoadInventoryItems();
+		
+        try {
+        	
+        	DiscountedProduct discProd = (DiscountedProduct)newProduct;
+        	activeProducts.add(new DiscountedProduct(discProd));
+        	
+        } catch (ClassCastException e) {
+        	activeProducts.add(new Product(newProduct));
+        }
+
+
+		PopulateSellerInventory();
+		//LoadInventoryItems();
 		
 	}
 	
@@ -234,19 +252,16 @@ public class Database {
 			while ((line = inventoryDatabaseReader.readLine()) != null) {  
 				
 				String[] le_line = line.split(splitBy);
-				//System.out.println(le_line[0] + ", " );  
 				
 				if(Float.parseFloat(le_line[6]) > 0) {
 					activeProducts.add(new DiscountedProduct(
 							Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
 						);
-					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
 				} else {
 					// Not a discounted product. Adding regular product.
 					activeProducts.add(new Product(
 						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
 					);
-					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
 				}
 				
 				/*try {
@@ -264,6 +279,7 @@ public class Database {
 
 				
 			}
+			PopulateSellerInventory();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
@@ -272,22 +288,36 @@ public class Database {
 	 * Populate each seller's inventory with products that they were responsible for posting.
 	 * @param product Product to link  with seller account.
 	 */
-	private void PopulateSellerInventory(Product product) {
+	private void PopulateSellerInventory() {
+		
 		for(Account account : activeAccounts) {
-			
 			try {
 				Seller sellAccount = (Seller)account;
-				
-				if(product.getSellerName().equals(sellAccount.getUsername())) {
-					sellAccount.getInventory().AddProduct(product);
-				}
+				sellAccount.getInventory().GetProducts().clear();
 
 			} catch (ClassCastException e) {
 				continue;
 			}
-			
-
 		}
+		
+		for(Product product : activeProducts) {
+			for(Account account : activeAccounts) {
+				
+				try {
+					Seller sellAccount = (Seller)account;
+					
+					if(product.getSellerName().equals(sellAccount.getUsername())) {
+						sellAccount.getInventory().AddProduct(product);
+					}
+
+				} catch (ClassCastException e) {
+					continue;
+				}
+				
+
+			}
+		}
+
 	}
 	
 	/**

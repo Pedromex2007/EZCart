@@ -112,6 +112,17 @@ public class UpdateProductWindow extends JFrame {
 		textFieldPrice.setText(Float.toString(activeProduct.getSellPrice()));
 		textFieldQuantity.setText(Integer.toString(activeProduct.getQuantity()));
 		
+		try {
+			
+			DiscountedProduct activeProdDisc = (DiscountedProduct) activeProduct;
+			textFieldPrice.setText(Float.toString(activeProdDisc.getBasePrice()));
+			textFieldDiscount.setText(Float.toString(activeProdDisc.getDiscountAmount()));
+			chckbxDiscount.setSelected(true);
+			
+		} catch(ClassCastException e) {
+			
+		}
+		
 		
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -128,9 +139,9 @@ public class UpdateProductWindow extends JFrame {
 					
 					newProduct.setName(textFieldName.getText());
 					newProduct.setSellPrice(Float.parseFloat(textFieldPrice.getText()));
-					newProduct.setInvoicePrice(Float.parseFloat(textFieldPrice.getText()));
+					//newProduct.setInvoicePrice(Float.parseFloat(textFieldPrice.getText()));
 					newProduct.setQuantity(Integer.parseInt(textFieldQuantity.getText()));
-					//newProduct.setDiscount(Float.parseFloat(textFieldDiscount.getText()));
+					newProduct.setDiscount(Float.parseFloat(textFieldDiscount.getText()));
 					
 					
 					Database.Instance.EditProductInformationDatabase(activeProduct, newProduct);
@@ -143,7 +154,7 @@ public class UpdateProductWindow extends JFrame {
 					
 					newProduct.setName(textFieldName.getText());
 					newProduct.setSellPrice(Float.parseFloat(textFieldPrice.getText()));
-					newProduct.setInvoicePrice(Float.parseFloat(textFieldPrice.getText()));
+					//newProduct.setInvoicePrice(Float.parseFloat(textFieldPrice.getText()));
 					newProduct.setQuantity(Integer.parseInt(textFieldQuantity.getText()));
 					
 					Database.Instance.EditProductInformationDatabase(activeProduct, newProduct);
