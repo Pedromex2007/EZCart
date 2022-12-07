@@ -29,10 +29,6 @@ public class Product {
 	
 	public String getSellerName() { return sellerProducer; }
 	
-	public float getBasePrice() {
-		return sellPrice;
-	}
-	
 	public Product(int id, String name, float sellPrice, float invoicePrice, int quantity, String sellerProducer) {
 		this.id = id;
 		this.name = name;
@@ -42,29 +38,19 @@ public class Product {
 		this.sellerProducer = sellerProducer;
 	}
 	
-	public Product(Product cloneProduct) {
-    	this.id = cloneProduct.id;
-    	this.name = cloneProduct.name;
-    	this.sellPrice = cloneProduct.sellPrice;
-    	this.invoicePrice = cloneProduct.invoicePrice;
-    	this.quantity = cloneProduct.quantity;
-    	this.sellerProducer = cloneProduct.sellerProducer;
-    	this.type = cloneProduct.type;
-	}
-	
-	/*@Override
-    public Object clone() throws CloneNotSupportedException {
-    	Product cloneProduct = (Product)super.clone();
+    /*public Object clone() throws CloneNotSupportedException {
+        // Assign the shallow copy to
+        // new reference variable t
+    	Product t = (Product)super.clone();
  
-    	cloneProduct.id = this.id;
-    	cloneProduct.name = this.name;
-    	cloneProduct.sellPrice = this.sellPrice;
-    	cloneProduct.invoicePrice = this.invoicePrice;
-    	cloneProduct.quantity = this.quantity;
-    	cloneProduct.sellerProducer = this.sellerProducer;
-    	cloneProduct.type = this.type;
+        // Creating a deep copy for c
+        t.c = new Product();
 
-        return cloneProduct;
+ 
+        // Create a new object for the field c
+        // and assign it to shallow copy obtained,
+        // to make it a deep copy
+        return t;
     }*/
 	
 }

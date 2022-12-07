@@ -7,7 +7,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import cop4331.accountwindows.Account;
+import cop4331.accountwindows.Buyer;
 import cop4331.accountwindows.Seller;
 
 /**
@@ -22,12 +25,15 @@ public class Database {
 	
 	private ArrayList<Account> activeAccounts = new ArrayList<Account>();
 	public ArrayList<Product> activeProducts = new ArrayList<Product>();
+	public ArrayList<ShoppingCart> activeShoppingCarts = new ArrayList<ShoppingCart>();
 	
 	private BufferedReader inventoryDatabaseReader;
 	private BufferedReader userDatabaseReader;
+	private BufferedReader shoppingCartDatabaseReader;
 	
 	private File inventoryDatabase;
 	private File userDatabase;
+	private File shoppingCartDatabase;
 	
 	/**
 	 * Instantiate the database and connect to our csv files.
@@ -38,10 +44,12 @@ public class Database {
 		try   {  
 
 			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));  
-			userDatabaseReader = new BufferedReader(new FileReader("userList.csv"));  
+			userDatabaseReader = new BufferedReader(new FileReader("userList.csv")); 
+			shoppingCartDatabaseReader = new BufferedReader(new FileReader("shoppingCartList.csv"));  
 			
 			userDatabase = new File("userList.csv");
 			inventoryDatabase = new File("inventoryList.csv");
+			shoppingCartDatabase = new File("shoppingCartList.csv");
 			
 			Load();
 
@@ -82,7 +90,7 @@ public class Database {
 				if(le_line[3].equals("Seller")) {
 					activeAccounts.add(new Seller(le_line[0], le_line[1], le_line[2]));
 				} else {
-					activeAccounts.add(new Account(le_line[0], le_line[1], le_line[2]));
+					activeAccounts.add(new Buyer(le_line[0], le_line[1], le_line[2]));
 				}
 				
 			}
@@ -106,7 +114,12 @@ public class Database {
         productDetails[3] = Float.toString(product.getInvoicePrice());
         productDetails[4] = Integer.toString(product.getQuantity());
         productDetails[5] = product.getSellerName();
-        
+		System.out.println("Product ID: " + Integer.toString(product.getProductID()));
+		System.out.println("Product name: " + product.getName());
+		System.out.println("Sell price: " + Float.toString(product.getSellPrice()));
+		System.out.println("Invoice price: " + Float.toString(product.getInvoicePrice()));
+		System.out.println("Quantity: " +  Integer.toString(product.getQuantity()));
+		System.out.println("Seller name: " + product.getSellerName());
         
         try {
         	
@@ -116,7 +129,7 @@ public class Database {
         } catch (ClassCastException e) {
         	
         	System.out.println("This is not a discounted product. Disregarding.");
-        	productDetails[6] = "0";
+        	productDetails[6] = null;
         	
         }
 
@@ -128,84 +141,8 @@ public class Database {
         
 	}
 	
-	/***
-	 * Edit a product with the new product information. Product with the matching ID will be modified.
-	 * @param originalProduct Product to alter.
-	 * @param newProduct New product information.
-	 */
-	public void EditProductInformationDatabase(Product originalProduct, Product newProduct) {
-		
-		try {
-			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		}  
-		
-		ArrayList<String[]> csvLines = GetCSVLines(inventoryDatabaseReader);
-		
-		
-		
-		
-		
-		for(String[] lineString : csvLines) {
-			System.out.println("READING");
-			
-			System.out.println(Integer.parseInt(lineString[0]) + " | " + originalProduct.getProductID());
-			
-			if(Integer.parseInt(lineString[0]) == originalProduct.getProductID()) {
-				lineString[1] = newProduct.getName();
-				lineString[2] = Float.toString(newProduct.getBasePrice());
-				lineString[3] = Float.toString(newProduct.getInvoicePrice());
-				lineString[4] = Integer.toString(newProduct.getQuantity());
-				
-				//System.out.println("I found it! Editing...");
-				
-		        try {
-		        	
-		        	DiscountedProduct discProd = (DiscountedProduct)newProduct;
-		        	lineString[6] = Float.toString(discProd.getDiscountAmount());
-		        	
-		        } catch (ClassCastException e) {
-		        	System.out.println("Not a discounted product.");
-		        	lineString[6] = "0";
-		        }
-
-				break;
-			}			
-			
-		}
-		
-		//This will override everything and starting recreating the database.
-		//Only way to edit/remove things from the file apparently.
-		boolean append = false;
-		
-		for(String[] innerLine : csvLines) {
-			WriteToCSV(innerLine, inventoryDatabase, append);
-			append = true;
-		}
-		
-		for(Product product : activeProducts) {
-			if(product.getProductID() == originalProduct.getProductID()) {
-				activeProducts.remove(product);
-				break;
-			}
-		}
-		
-		
-        try {
-        	
-        	DiscountedProduct discProd = (DiscountedProduct)newProduct;
-        	activeProducts.add(new DiscountedProduct(discProd));
-        	
-        } catch (ClassCastException e) {
-        	activeProducts.add(new Product(newProduct));
-        }
-
-
-		PopulateSellerInventory();
-		//LoadInventoryItems();
-		
-	}
+	
+	
 	
 	/***
 	 * Get every line from a specific CSV file and turn it into an ArrayList. Useful or editing or deleting rows.
@@ -223,7 +160,7 @@ public class Database {
 				
 				String[] le_line = line.split(splitBy);
 				csvLines.add(le_line);
-				//System.out.println(le_line[0] + ", " );  
+				System.out.println(le_line[0] + ", " );  
 
 				
 			}
@@ -250,21 +187,23 @@ public class Database {
 			while ((line = inventoryDatabaseReader.readLine()) != null) {  
 				
 				String[] le_line = line.split(splitBy);
+				//System.out.println(le_line[0] + ", " );  
 				
-				if(Float.parseFloat(le_line[6]) > 0) {
+				try {
 					activeProducts.add(new DiscountedProduct(
-							Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
-						);
-				} else {
+						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
+					);
+					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
+				} catch (Exception e) {
 					// Not a discounted product. Adding regular product.
 					activeProducts.add(new Product(
 						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
 					);
+					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
 				}
 
 				
 			}
-			PopulateSellerInventory();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
@@ -273,36 +212,22 @@ public class Database {
 	 * Populate each seller's inventory with products that they were responsible for posting.
 	 * @param product Product to link  with seller account.
 	 */
-	private void PopulateSellerInventory() {
-		
+	private void PopulateSellerInventory(Product product) {
 		for(Account account : activeAccounts) {
+			
 			try {
 				Seller sellAccount = (Seller)account;
-				sellAccount.getInventory().GetProducts().clear();
+				
+				if(product.getSellerName().equals(sellAccount.getUsername())) {
+					sellAccount.getInventory().AddProduct(product);
+				}
 
 			} catch (ClassCastException e) {
 				continue;
 			}
+			
+
 		}
-		
-		for(Product product : activeProducts) {
-			for(Account account : activeAccounts) {
-				
-				try {
-					Seller sellAccount = (Seller)account;
-					
-					if(product.getSellerName().equals(sellAccount.getUsername())) {
-						sellAccount.getInventory().AddProduct(product);
-					}
-
-				} catch (ClassCastException e) {
-					continue;
-				}
-				
-
-			}
-		}
-
 	}
 	
 	/**
@@ -325,6 +250,44 @@ public class Database {
 		return false;
 		
 	}
+
+	/**
+	 * Check with the active account list to see if the username is taken.
+	 * @param username The username we're checking.
+	 * @return if the username already exists.
+	 */
+	public boolean usernameIsTaken(String username) {
+		
+		for(Account account : activeAccounts) {
+			
+				if(account.getUsername().equals(username)) {
+					System.out.println("Username taken");
+					return true;
+				}
+			
+		}
+		return false;
+		
+	}
+
+	/**
+	 * Check with the active account list to see if the email is taken.
+	 * @param email The email we're checking.
+	 * @return if the email already exists.
+	 */
+	public boolean emailIsTaken(String email) {
+		
+		for(Account account : activeAccounts) {
+			
+				if(account.getEmail().equals(email)) {
+					System.out.println("Email taken");
+					return true;
+				}
+			
+		}
+		return false;
+		
+	}
 	
 	/**
 	 * Create a new account based on the parameters fed to the method.
@@ -332,13 +295,13 @@ public class Database {
 	 * @param password Password of the new account.
 	 * @param email Email of the new account.
 	 */
-	public void RegisterAccount(String username, String password, String email) {
+	public void RegisterAccount(String username, String password, String email, String type) {
         
         String[] accountDetails = new String[4];
         accountDetails[0] = username;
         accountDetails[1] = password;
         accountDetails[2] = email;
-        accountDetails[3] = "User";
+        accountDetails[3] = type;
         
         activeAccounts.add(new Account(username, password, email));	
 
@@ -370,8 +333,9 @@ public class Database {
 
         StringBuilder line = new StringBuilder();
         
-        for (int i = 0; i < stringLine.length; i++) {
-        	
+		// *IMPORTANT* changed from  for (int i = 0; i < stringLine.length; i++) {
+        for (int i = 0; i < stringLine.length - 1; i++) {
+        	System.out.println(stringLine.length);
             //line.append("\"");
             line.append(stringLine[i].replaceAll("\"","\"\""));
             //line.append("\"");

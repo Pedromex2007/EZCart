@@ -96,6 +96,20 @@ public class BrowseView extends JFrame {
 			});
 			
 		}
+		else {
+			JButton btnViewCartPage = new JButton("View Cart");
+
+			btnViewCartPage.setBounds(584, 11, 151, 33);
+			masterPanel.add(btnViewCartPage);
+			
+			btnViewCartPage.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ShoppingCartView.ShowShoppingCartView();
+					System.out.println("Showing cart");
+					DestroyWindow();
+				}
+			});
+		}
 		
 		
 	}
@@ -121,12 +135,21 @@ public class BrowseView extends JFrame {
 				
 				JButton btnView = new JButton("View");
 				this.add(btnView);
+				btnView.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ProductView.ShowProductView(product);
+						System.out.println("Viewing product");
+						DestroyWindow();
+					}
+				});
 				
 				JLabel lblItemprice = new JLabel(Float.toString(product.getSellPrice()));
 				this.add(lblItemprice);
 				
 				JButton btnAddToCart = new JButton("Add to Cart");
 				this.add(btnAddToCart);
+
+				
 			}
 		}
 		
@@ -142,6 +165,8 @@ public class BrowseView extends JFrame {
 			
 			ProductButton prodBtn = new ProductButton(product);
 			firstPanel.add(prodBtn);
+
+		
 			
 			/*subPanel.setLayout(new GridLayout(0, 2, 0, 0));
 			

@@ -14,6 +14,8 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.awt.Color;
+
 /**
  * 
  * @author Rafael Luviano
@@ -25,6 +27,8 @@ public class CreateAccountWindow extends JFrame {
 	private JTextField fieldUsername;
 	private JTextField fieldPassword;
 	private JTextField fieldEmail;
+
+	private String type;
 
 	/**
 	 * Launch this window when called.
@@ -85,11 +89,59 @@ public class CreateAccountWindow extends JFrame {
 		fieldEmail.setColumns(10);
 		fieldEmail.setBounds(87, 62, 143, 20);
 		contentPane.add(fieldEmail);
+
+		JLabel lblType = new JLabel("Type:");
+		lblType.setBounds(10, 91, 67, 17);
+		contentPane.add(lblType);
+
+		JButton btnBuyer = new JButton("Buyer");
+		btnBuyer.setBounds(60, 91, 70, 17);
+		contentPane.add(btnBuyer);
+
+		JButton btnSeller = new JButton("Seller");
+		btnSeller.setBounds(140, 91, 70, 17);
+		contentPane.add(btnSeller);
+
 		
+
+		JLabel messageLabel = new JLabel("Welcome");
+		messageLabel.setBounds(185, 220, 123, 23);
+		contentPane.add(messageLabel);
+		
+		btnBuyer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				type = "Buyer";
+			}
+		});
+
+		btnSeller.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				type = "Seller";
+			}
+		});
+
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Database.Instance.RegisterAccount(fieldUsername.getText(), fieldPassword.getText(), fieldEmail.getText());
-				DestroyRegisterWindow();
+				if(fieldUsername.getText().equals("") || fieldPassword.getText().equals("") || fieldEmail.getText().equals("")) {
+					messageLabel.setForeground(Color.red);
+					messageLabel.setText("Please fill in all fields.");
+				}
+				else if(Database.Instance.usernameIsTaken(fieldUsername.getText())) {
+					messageLabel.setForeground(Color.red);
+					messageLabel.setText("Username taken.");
+				}
+				else if(Database.Instance.emailIsTaken(fieldEmail.getText())) {
+					messageLabel.setForeground(Color.red);
+					messageLabel.setText("Email taken.");
+				}
+				else if(type != "Buyer" && type != "Seller") {
+					messageLabel.setForeground(Color.red);
+					messageLabel.setText("Buyer or Seller?");
+				}
+				else {
+					Database.Instance.RegisterAccount(fieldUsername.getText(), fieldPassword.getText(), fieldEmail.getText(), type);
+					DestroyRegisterWindow();
+				}
 			}
 		});
 		

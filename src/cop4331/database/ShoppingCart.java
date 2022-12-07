@@ -1,5 +1,7 @@
 package cop4331.database;
 
+
+
 public class ShoppingCart extends Inventory {
 	
 	public float GetTotalCost() {
