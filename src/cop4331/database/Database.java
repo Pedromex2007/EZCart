@@ -130,7 +130,11 @@ public class Database {
         
 	}
 	
-	
+	/***
+	 * Edit a product with the new product information. Product with the matching ID will be modified.
+	 * @param originalProduct Product to alter.
+	 * @param newProduct New product information.
+	 */
 	public void EditProductInformationDatabase(Product originalProduct, Product newProduct) {
 		
 		try {
