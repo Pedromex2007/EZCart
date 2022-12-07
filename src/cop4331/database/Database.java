@@ -29,11 +29,11 @@ public class Database {
 	
 	private BufferedReader inventoryDatabaseReader;
 	private BufferedReader userDatabaseReader;
-	private BufferedReader shoppingCartDatabaseReader;
+
 	
 	private File inventoryDatabase;
 	private File userDatabase;
-	private File shoppingCartDatabase;
+	
 	
 	/**
 	 * Instantiate the database and connect to our csv files.
@@ -45,11 +45,11 @@ public class Database {
 
 			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));  
 			userDatabaseReader = new BufferedReader(new FileReader("userList.csv")); 
-			shoppingCartDatabaseReader = new BufferedReader(new FileReader("shoppingCartList.csv"));  
+			
 			
 			userDatabase = new File("userList.csv");
 			inventoryDatabase = new File("inventoryList.csv");
-			shoppingCartDatabase = new File("shoppingCartList.csv");
+			
 			
 			Load();
 
@@ -333,8 +333,8 @@ public class Database {
 
         StringBuilder line = new StringBuilder();
         
-		// *IMPORTANT* changed from  for (int i = 0; i < stringLine.length; i++) {
-        for (int i = 0; i < stringLine.length - 1; i++) {
+		
+        for (int i = 0; i < stringLine.length; i++) {
         	System.out.println(stringLine.length);
             //line.append("\"");
             line.append(stringLine[i].replaceAll("\"","\"\""));
