@@ -32,7 +32,7 @@ public class UpdateProductWindow extends JFrame {
 	private JLabel lblDisc;
 
 	/**
-	 * Launch the application.
+	 * Launch the UpdateProduct window. Lets a seller modify their products.
 	 */
 	public static void ShowUpdateProductWindow(Product currentProduct) {
 		activeProduct = currentProduct;

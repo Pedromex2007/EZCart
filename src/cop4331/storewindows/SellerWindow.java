@@ -27,7 +27,8 @@ public class SellerWindow extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
+	 * Launch the seller window. Shows you all the products you have listed and is a gateway to the edit product page and
+	 * the stats page.
 	 */
 	public static void ShowSellerWindow() {
 		EventQueue.invokeLater(new Runnable() {

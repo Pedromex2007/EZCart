@@ -21,7 +21,7 @@ public class ViewStatistics extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the application.
+	 * Launch the ViewStats page. Will use the loggedAccount for the information.
 	 */
 	public static void ShowStatsView() {
 		EventQueue.invokeLater(new Runnable() {
