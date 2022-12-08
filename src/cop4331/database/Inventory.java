@@ -49,3 +49,4 @@ public class Inventory implements Iterable<Product> {
 		return products.iterator();
 	}
 }
+

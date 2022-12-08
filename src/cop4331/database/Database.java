@@ -7,7 +7,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import cop4331.accountwindows.Account;
+import cop4331.accountwindows.Buyer;
 import cop4331.accountwindows.Seller;
 
 /**
@@ -21,21 +24,26 @@ public class Database {
 	
 	private BufferedReader inventoryDatabaseReader;
 	private BufferedReader userDatabaseReader;
+
 	
 	private File inventoryDatabase;
 	private File userDatabase;
+	
 	
 	/**
 	 * Instantiate the database and connect to our csv files.
 	 */
 	public Database() {
+
 		try   {  
 
 			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));  
-			userDatabaseReader = new BufferedReader(new FileReader("userList.csv"));  
+			userDatabaseReader = new BufferedReader(new FileReader("userList.csv")); 
+			
 			
 			userDatabase = new File("userList.csv");
 			inventoryDatabase = new File("inventoryList.csv");
+			
 			
 			Load();
 
@@ -76,7 +84,7 @@ public class Database {
 				if(le_line[3].equals("Seller")) {
 					activeAccounts.add(new Seller(le_line[0], le_line[1], le_line[2]));
 				} else {
-					activeAccounts.add(new Account(le_line[0], le_line[1], le_line[2]));
+					activeAccounts.add(new Buyer(le_line[0], le_line[1], le_line[2]));
 				}
 				
 			}
@@ -100,7 +108,12 @@ public class Database {
         productDetails[3] = Float.toString(product.getInvoicePrice());
         productDetails[4] = Integer.toString(product.getQuantity());
         productDetails[5] = product.getSellerName();
-        
+		System.out.println("Product ID: " + Integer.toString(product.getProductID()));
+		System.out.println("Product name: " + product.getName());
+		System.out.println("Sell price: " + Float.toString(product.getSellPrice()));
+		System.out.println("Invoice price: " + Float.toString(product.getInvoicePrice()));
+		System.out.println("Quantity: " +  Integer.toString(product.getQuantity()));
+		System.out.println("Seller name: " + product.getSellerName());
         
         try {
         	
@@ -110,7 +123,7 @@ public class Database {
         } catch (ClassCastException e) {
         	
         	System.out.println("This is not a discounted product. Disregarding.");
-        	productDetails[6] = "0";
+        	productDetails[6] = null;
         	
         }
 
@@ -201,6 +214,7 @@ public class Database {
 		
 	}
 	
+	
 	/***
 	 * Get every line from a specific CSV file and turn it into an ArrayList. Useful or editing or deleting rows.
 	 * @param csvFile
@@ -217,7 +231,7 @@ public class Database {
 				
 				String[] le_line = line.split(splitBy);
 				csvLines.add(le_line);
-				//System.out.println(le_line[0] + ", " );  
+				System.out.println(le_line[0] + ", " );  
 
 				
 			}
@@ -319,6 +333,44 @@ public class Database {
 		return false;
 		
 	}
+
+	/**
+	 * Check with the active account list to see if the username is taken.
+	 * @param username The username we're checking.
+	 * @return if the username already exists.
+	 */
+	public boolean usernameIsTaken(String username) {
+		
+		for(Account account : activeAccounts) {
+			
+				if(account.getUsername().equals(username)) {
+					System.out.println("Username taken");
+					return true;
+				}
+			
+		}
+		return false;
+		
+	}
+
+	/**
+	 * Check with the active account list to see if the email is taken.
+	 * @param email The email we're checking.
+	 * @return if the email already exists.
+	 */
+	public boolean emailIsTaken(String email) {
+		
+		for(Account account : activeAccounts) {
+			
+				if(account.getEmail().equals(email)) {
+					System.out.println("Email taken");
+					return true;
+				}
+			
+		}
+		return false;
+		
+	}
 	
 	/**
 	 * Create a new account based on the parameters fed to the method.
@@ -326,13 +378,13 @@ public class Database {
 	 * @param password Password of the new account.
 	 * @param email Email of the new account.
 	 */
-	public void RegisterAccount(String username, String password, String email) {
+	public void RegisterAccount(String username, String password, String email, String type) {
         
         String[] accountDetails = new String[4];
         accountDetails[0] = username;
         accountDetails[1] = password;
         accountDetails[2] = email;
-        accountDetails[3] = "User";
+        accountDetails[3] = type;
         
         activeAccounts.add(new Account(username, password, email));	
 
@@ -364,8 +416,9 @@ public class Database {
 
         StringBuilder line = new StringBuilder();
         
+		
         for (int i = 0; i < stringLine.length; i++) {
-        	
+        	System.out.println(stringLine.length);
             //line.append("\"");
             line.append(stringLine[i].replaceAll("\"","\"\""));
             //line.append("\"");

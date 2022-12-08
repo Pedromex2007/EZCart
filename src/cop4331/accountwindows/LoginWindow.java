@@ -17,6 +17,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 
+import java.awt.Color;
+
 /**
  * 
  * @author Rafael Luviano
@@ -34,10 +36,10 @@ public class LoginWindow extends JFrame {
 	 * Launch the application. The magic all starts RIGHT here!
 	 */
 	public static void main(String[] args) {
-		//Product org = new Product(1, "Test", 0.1f, 0.1f, 5, "Sneedus");
-		//Product newOrg = new Product(1, "Product", 0.7f, 0.7f, 10, "Sneedus");
+
 		
-		//data.EditProductInformationDatabase(org, newOrg);
+		Database data = new Database();
+
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -95,13 +97,24 @@ public class LoginWindow extends JFrame {
 		JLabel lblPassword = new JLabel("Password:");
 		lblPassword.setBounds(61, 112, 73, 14);
 		contentPane.add(lblPassword);
+
+		JLabel messageLabel = new JLabel("Welcome");
+		messageLabel.setBounds(185, 220, 123, 23);
+		contentPane.add(messageLabel);
+		
 		
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Database db = ShoppingCartSystem.getInstance().database;
-				if(db.VerifyAccountInformation(fieldUsername.getText(), fieldPassword.getText())) {
+				
+
+				if(ShoppingCartSystem.getInstance().database.VerifyAccountInformation(fieldUsername.getText(), fieldPassword.getText())) {
+
 					BrowseView.ShowBrowseView();
 					DestroyLoginWindow();
+				}
+				else {
+					messageLabel.setForeground(Color.red);
+					messageLabel.setText("Invalid credentials.");
 				}
 
 			}
