@@ -141,6 +141,8 @@ public class BrowseView extends JFrame {
 				JLabel lblItemprice = new JLabel(Float.toString(product.getSellPrice()));
 				this.add(lblItemprice);
 				
+
+				if(Account.loggedAccount instanceof Buyer) {
 				JButton btnAddToCart = new JButton("Add to Cart");
 				this.add(btnAddToCart);
 				btnAddToCart.addActionListener(new ActionListener() {
@@ -157,6 +159,8 @@ public class BrowseView extends JFrame {
 						
 					}
 				});
+
+				}
 
 				
 			}

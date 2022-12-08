@@ -111,14 +111,14 @@ public class LoginWindow extends JFrame {
 					BrowseView.ShowBrowseView();
 					DestroyLoginWindow();
 
-					if(Account.loggedAccount instanceof Seller) {
-						SellerWindow.ShowSellerWindow();
-						DestroyLoginWindow();
-					}
-					else if(Account.loggedAccount instanceof Buyer){
-						BrowseView.ShowBrowseView();
-						DestroyLoginWindow();
-					}
+					//if(Account.loggedAccount instanceof Seller) {
+					//	SellerWindow.ShowSellerWindow();
+					//	DestroyLoginWindow();
+					//}
+					//else if(Account.loggedAccount instanceof Buyer){
+					//	BrowseView.ShowBrowseView();
+					//	DestroyLoginWindow();
+					//}
 					
 
 				}
