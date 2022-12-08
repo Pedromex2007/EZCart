@@ -70,6 +70,8 @@ public class LoginWindow extends JFrame {
 
 		contentPane.setLayout(null);
 		contentPane.add(btnLogin);
+
+		
 		
 		fieldUsername = new JTextField();
 		fieldUsername.setBounds(144, 78, 153, 20);

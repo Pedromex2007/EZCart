@@ -55,6 +55,15 @@ public class AddProductWindow extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
+		JButton btnGoBack = new JButton("Go Back");
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DestroyWindow();
+			}
+		});
+		btnGoBack.setBounds(73, 227, 89, 23);
+		contentPane.add(btnGoBack);
 		
 		JButton btnSubmit = new JButton("Submit");
 
@@ -128,11 +137,8 @@ public class AddProductWindow extends JFrame {
 					
 					db.CreateProductEntryDatabase(product);
 				}
-				
 				DestroyWindow();
-				
 			}
-			
 		});
 	}
 	

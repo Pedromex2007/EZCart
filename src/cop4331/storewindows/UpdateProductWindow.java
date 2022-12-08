@@ -125,7 +125,6 @@ public class UpdateProductWindow extends JFrame {
 			
 		}
 		
-		
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DestroyWindow();
@@ -137,34 +136,22 @@ public class UpdateProductWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Database db = ShoppingCartSystem.getInstance().database;
 				if(chckbxDiscount.isSelected()) {
-				
 					DiscountedProduct newProduct = new DiscountedProduct(activeProduct, Float.parseFloat(textFieldDiscount.getText()));
-					
 					newProduct.setName(textFieldName.getText());
 					newProduct.setSellPrice(Float.parseFloat(textFieldPrice.getText()));
 					//newProduct.setInvoicePrice(Float.parseFloat(textFieldPrice.getText()));
 					newProduct.setQuantity(Integer.parseInt(textFieldQuantity.getText()));
 					newProduct.setDiscount(Float.parseFloat(textFieldDiscount.getText()));
-					
-					
 					db.EditProductInformationDatabase(activeProduct, newProduct);
-
 					
 				} else {
-					
-	
 					Product newProduct = new Product(activeProduct);
-					
 					newProduct.setName(textFieldName.getText());
 					newProduct.setSellPrice(Float.parseFloat(textFieldPrice.getText()));
 					//newProduct.setInvoicePrice(Float.parseFloat(textFieldPrice.getText()));
 					newProduct.setQuantity(Integer.parseInt(textFieldQuantity.getText()));
-					
-					db.EditProductInformationDatabase(activeProduct, newProduct);
-
-					
+					db.EditProductInformationDatabase(activeProduct, newProduct);	
 				}
-
 				DestroyWindow();
 				SellerWindow.ShowSellerWindow();
 			}
@@ -172,7 +159,6 @@ public class UpdateProductWindow extends JFrame {
 		
 	}
 
-	
 	private void DestroyWindow() {
 		this.dispose();
 	}
