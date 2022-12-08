@@ -386,10 +386,15 @@ public class Database {
         accountDetails[1] = password;
         accountDetails[2] = email;
         accountDetails[3] = type;
-        
-        activeAccounts.add(new Account(username, password, email));	
+        if(accountDetails[3].equals("Seller")) {
+			activeAccounts.add(new Seller(username, password, email));
+		} else {
+			activeAccounts.add(new Buyer(username, password, email));
+		}
+        //activeAccounts.add(new Account(username, password, email));	
 
         WriteToCSV(accountDetails, userDatabase, true);
+		LoadAccounts();
         
 	}
 	

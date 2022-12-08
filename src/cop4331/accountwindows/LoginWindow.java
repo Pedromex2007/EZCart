@@ -10,6 +10,7 @@ import cop4331.database.Database;
 import cop4331.database.Product;
 import cop4331.database.ShoppingCartSystem;
 import cop4331.storewindows.BrowseView;
+import cop4331.storewindows.SellerWindow;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -106,8 +107,20 @@ public class LoginWindow extends JFrame {
 				
 
 				if(ShoppingCartSystem.getInstance().database.VerifyAccountInformation(fieldUsername.getText(), fieldPassword.getText())) {
+
 					BrowseView.ShowBrowseView();
 					DestroyLoginWindow();
+
+					if(Account.loggedAccount instanceof Seller) {
+						SellerWindow.ShowSellerWindow();
+						DestroyLoginWindow();
+					}
+					else if(Account.loggedAccount instanceof Buyer){
+						BrowseView.ShowBrowseView();
+						DestroyLoginWindow();
+					}
+					
+
 				}
 				else {
 					messageLabel.setForeground(Color.red);

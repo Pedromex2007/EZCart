@@ -79,7 +79,7 @@ public class CheckoutWindow extends JFrame {
 		contentPane.add(lblPassword);
 
 		JLabel messageLabel = new JLabel();
-		messageLabel.setBounds(185, 220, 123, 23);
+		messageLabel.setBounds(185, 220, 250, 23);
 		contentPane.add(messageLabel);
 		
 		
@@ -111,11 +111,13 @@ public class CheckoutWindow extends JFrame {
 				}
 				catch(NumberFormatException ex) {
 					messageLabel.setForeground(Color.red);
+					messageLabel.setBounds(175, 220, 250, 23);
 					messageLabel.setText("Numbers only!");
 				}
 
 				if(fieldCard.getText().length() != 16) {
 					messageLabel.setForeground(Color.red);
+					messageLabel.setBounds(100, 220, 300, 23);
 					messageLabel.setText("Make sure you enter a card number with 16 digits.");
 				}
 				else {
