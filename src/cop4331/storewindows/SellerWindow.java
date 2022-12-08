@@ -104,7 +104,9 @@ public class SellerWindow extends JFrame {
 				ViewStatistics.ShowStatsView();
 			}
 		});
-		btnViewStats.setBounds(10, 75, 171, 53);
+
+		btnViewStats.setBounds(10, 140, 171, 53);
+
 		contentPane_1_1.add(btnViewStats);
 		
 		JLabel lblNewLabel = new JLabel("Listed Products");

@@ -9,6 +9,14 @@ public class TransactionHistory {
 	
 	private static TransactionHistory instance;
 	
+	/**
+	 * Add a transaction to the history
+	 * @param transaction
+	 */
+	public void addProduct(Transaction transaction) {
+		transactions.add(transaction);
+	}
+
 	public TransactionHistory() {
 		instance = this;
 	}

@@ -59,7 +59,7 @@ public class CreateAccountWindow extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		
+
 		JButton btnRegister = new JButton("Register");
 
 		btnRegister.setBounds(10, 227, 89, 23);
@@ -103,8 +103,6 @@ public class CreateAccountWindow extends JFrame {
 		JButton btnSeller = new JButton("Seller");
 		btnSeller.setBounds(140, 91, 70, 17);
 		contentPane.add(btnSeller);
-
-		
 
 		JLabel messageLabel = new JLabel("Welcome");
 		messageLabel.setBounds(185, 220, 123, 23);
