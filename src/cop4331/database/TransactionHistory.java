@@ -21,11 +21,21 @@ public class TransactionHistory {
 		instance = this;
 	}
 	
+	/***
+	 * Get the list of all transactions.
+	 * @return Transaction history list.
+	 */
 	public static ArrayList<Transaction> getTransactions() {
 		return instance.transactions;
 	}
 	
-	// I don't really know what was the difference between these three.
+	//TODO: I don't really know what was the difference between these three.
+	
+	/***
+	 * Get the total cost of every transaction.
+	 * @param seller Seller to examine.
+	 * @return Transaction costs from this seller.
+	 */
 	public static float getCostsFor(Seller seller) {
 		float finalCosts = 0;
 		
@@ -40,6 +50,11 @@ public class TransactionHistory {
 		return finalCosts;
 	}
 	
+	/***
+	 * Get all revenue generated from this seller's products.
+	 * @param seller Seller to examine.
+	 * @return Revenue generated.
+	 */
 	public static float getRevenueFor(Seller seller) {
 		float finalRevenue = 0;
 		
@@ -54,6 +69,11 @@ public class TransactionHistory {
 		return finalRevenue;
 	}
 	
+	/***
+	 * Get the profit generated from all products this seller posted.
+	 * @param seller Seller to examine.
+	 * @return Profits generated.
+	 */
 	public static float getProfitFor(Seller seller) {
 		float finalProfit = 0;
 		

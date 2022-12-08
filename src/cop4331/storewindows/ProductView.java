@@ -28,7 +28,7 @@ public class ProductView extends JFrame{
     
 
 	/**
-	 * Launch the application.
+	 * Launch detailed product view. Gives a detailed view about a product.
 	 */
 	public static void ShowProductView(Product product) {
 		EventQueue.invokeLater(new Runnable() {

@@ -18,7 +18,7 @@ public class Transaction {
 	
 	/***
 	 * Get the ID of this specific transaction.
-	 * @return
+	 * @return Transaction ID.
 	 */
 	public int getTransactionID() {
 		return id;

@@ -36,7 +36,7 @@ public class CheckoutWindow extends JFrame {
 
 
 	/**
-	 * Launch the application.
+	 * Launch the checkout window.
 	 */
 	public static void ShowCheckoutWindow() {
 		EventQueue.invokeLater(new Runnable() {
