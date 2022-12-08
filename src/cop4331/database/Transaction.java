@@ -16,18 +16,34 @@ public class Transaction {
 		this.cost = cost;
 	}
 	
+	/***
+	 * Get the ID of this specific transaction.
+	 * @return
+	 */
 	public int getTransactionID() {
 		return id;
 	}
 	
+	/***
+	 * Get the ID of the seller.
+	 * @return Seller username.
+	 */
 	public String getSellerID() {
 		return sellerID;
 	}
 	
+	/***
+	 * Get the ID of the buyer.
+	 * @return Buyer username.
+	 */
 	public String getBuyerID() {
 		return buyerID;
 	}
 	
+	/***
+	 * Get the total cost of this transaction.
+	 * @return Transaction cost.
+	 */
 	public float getCost() {
 		return cost;
 	}
