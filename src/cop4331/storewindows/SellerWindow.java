@@ -128,7 +128,8 @@ public class SellerWindow extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					
 					System.out.println("It worked!");
-					
+					UpdateProductWindow.ShowUpdateProductWindow(prodBtn.product);
+					DestroyWindow();
 				}
 			});
 			
@@ -138,5 +139,9 @@ public class SellerWindow extends JFrame {
 			
 		}
 		
+	}
+
+	private void DestroyWindow() {
+		this.dispose();
 	}
 }
