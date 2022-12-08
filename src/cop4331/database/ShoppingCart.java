@@ -47,6 +47,7 @@ public class ShoppingCart {
 		
 		float finalCost = 0.00f;
 		
+
 		for(Product product : getProducts()) {
 			finalCost += product.getTotalPrice();
 		}

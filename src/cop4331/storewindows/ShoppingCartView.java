@@ -60,7 +60,6 @@ public class ShoppingCartView extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane_1.add(panel);
 		panel.setLayout(new GridLayout(0, 4, 0, 0));
-
 		
 		GenerateCart(panel);
 		
@@ -69,16 +68,12 @@ public class ShoppingCartView extends JFrame {
 		contentPane_1_1.setBounds(0, 21, 191, 415);
 		contentPane.add(contentPane_1_1);
 		
-		
-
 		JButton btnBackToStore = new JButton("Back to Store");
 		btnBackToStore.setBounds(10, 75, 171, 53);
 		contentPane_1_1.add(btnBackToStore);
 		btnBackToStore.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				BrowseView.ShowBrowseView();
-				
+				BrowseView.ShowBrowseView();	
 			}
 		});
 		
@@ -86,14 +81,10 @@ public class ShoppingCartView extends JFrame {
 		btnBackToStore.setBounds(330, 0, 130, 22);
 		contentPane_1_1.add(btnCheckOut);
 		btnCheckOut.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
+			public void actionPerformed(ActionEvent e) {	
 				CheckoutWindow.ShowCheckoutWindow();
-				
 			}
-		});
-		
-		
+		});	
 	}
 
 	/**
@@ -106,15 +97,10 @@ public class ShoppingCartView extends JFrame {
 			Product product;
 			public ProductButton(Product product) {
 				this.product = product;
-
-				//JLabel lblName = new JLabel(product.getName());
-				//subPanel.add(lblName);
 				this.setText("Remove");
 				subPanel.add(this);
 			}
-			
 		}
-		
 		
 		for(Product product : buyerCast.getShoppingCart().getProducts()) {
 			
@@ -146,7 +132,5 @@ public class ShoppingCartView extends JFrame {
 		}
 		JLabel lblTotal = new JLabel("Total Price: " + Float.toString(buyerCast.getShoppingCart().getTotalCost()));
 		subPanel.add(lblTotal);
-		
 	}
-
 }

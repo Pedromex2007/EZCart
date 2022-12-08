@@ -24,10 +24,12 @@ public class Database {
 	
 	private BufferedReader inventoryDatabaseReader;
 	private BufferedReader userDatabaseReader;
+	private BufferedReader transactionDatabaseReader;
 
 	
 	private File inventoryDatabase;
 	private File userDatabase;
+	private File transactionDatabase;
 	
 	
 	/**
@@ -35,15 +37,19 @@ public class Database {
 	 */
 	public Database() {
 		
-		
+		TransactionHistory transactionHistory = new TransactionHistory();
+
 		try   {  
 
 			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));  
 			userDatabaseReader = new BufferedReader(new FileReader("userList.csv")); 
+			transactionDatabaseReader = new BufferedReader(new FileReader("transactionList.csv")); 
 			
 			
 			userDatabase = new File("userList.csv");
 			inventoryDatabase = new File("inventoryList.csv");
+			transactionDatabase = new File("transactionList.csv");
+			
 			
 			
 			Load();
@@ -65,6 +71,7 @@ public class Database {
 	public void Load() {
 		LoadAccounts();
 		LoadInventoryItems();
+		LoadTransactionRecords();
 		//EditProductInformationDatabase();
 	}
 	
@@ -124,7 +131,7 @@ public class Database {
         } catch (ClassCastException e) {
         	
         	System.out.println("This is not a discounted product. Disregarding.");
-        	productDetails[6] = null;
+        	productDetails[6] = "0";
         	
         }
 
@@ -386,16 +393,52 @@ public class Database {
         accountDetails[1] = password;
         accountDetails[2] = email;
         accountDetails[3] = type;
-        if(accountDetails[3].equals("Seller")) {
-			activeAccounts.add(new Seller(username, password, email));
-		} else {
-			activeAccounts.add(new Buyer(username, password, email));
-		}
-        //activeAccounts.add(new Account(username, password, email));	
+        
+        activeAccounts.add(new Account(username, password, email));	
 
         WriteToCSV(accountDetails, userDatabase, true);
-		LoadAccounts();
         
+	}
+	
+	/***
+	 * Load our transaction records and save them into memory.
+	 */
+	
+	public void LoadTransactionRecords() {
+		String line = "";  
+		String splitBy = ",";  
+		
+		try {
+			
+			while ((line = transactionDatabaseReader.readLine()) != null) {  
+				
+				String[] le_line = line.split(splitBy);
+				//System.out.println(le_line[0] + ", " );  
+				
+				TransactionHistory.getTransactions().add(new Transaction(Integer.parseInt(le_line[0]), le_line[1], le_line[2], Float.parseFloat(le_line[3])));
+
+				
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
+	}
+	
+	/***
+	 * Record a transaction in our csv file.
+	 * @param transaction The transaction to save.
+	 */
+	public void CreateTransactionRecord(Transaction transaction) {
+		String[] transactionDetails = new String[4];
+		transactionDetails[0] = Integer.toString(transaction.getTransactionID());
+		transactionDetails[1] = transaction.getSellerID();
+		transactionDetails[2] = transaction.getBuyerID();
+		transactionDetails[3] = Float.toString(transaction.getCost());
+		
+		TransactionHistory.getTransactions().add(transaction);
+		
+		WriteToCSV(transactionDetails, transactionDatabase, true);
 	}
 	
 	/***

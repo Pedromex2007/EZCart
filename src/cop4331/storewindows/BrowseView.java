@@ -71,8 +71,6 @@ public class BrowseView extends JFrame {
 		panel.add(subPanel);
 		subPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		
-		
 		GenerateStoreButtons(panel);
 		
 		if(Account.loggedAccount instanceof Seller) {
@@ -104,8 +102,6 @@ public class BrowseView extends JFrame {
 				}
 			});
 		}
-		
-		
 	}
 	
 	/**
@@ -138,29 +134,19 @@ public class BrowseView extends JFrame {
 					}
 				});
 				
-				JLabel lblItemprice = new JLabel(Float.toString(product.getSellPrice()));
+				JLabel lblItemprice = new JLabel("Price: " + Float.toString(product.getSellPrice()));
 				this.add(lblItemprice);
 				
-
-				if(Account.loggedAccount instanceof Buyer) {
 				JButton btnAddToCart = new JButton("Add to Cart");
 				this.add(btnAddToCart);
 				btnAddToCart.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
 						Buyer buyerCast = (Buyer)Account.loggedAccount;
-						System.out.println(buyerCast);
-						
-						
-						ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);
-						masterPanel.repaint();
-						masterPanel.revalidate();
-						
-						
+						System.out.println(buyerCast);			
+						ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);	
 					}
 				});
-
-				}
 
 				
 			}
@@ -170,37 +156,15 @@ public class BrowseView extends JFrame {
 		// Clicking on the "view" button will instantiate the DetailView. Information from the item will be transferred to this view.
 		
 		// Instantiate each button.
-		for(Product product : ShoppingCartSystem.getInstance().database.activeProducts) { //for(Product product : Database.Instance.activeProducts) {
+		for(Product product : ShoppingCartSystem.getInstance().database.activeProducts) { 
 			System.out.println("Something, yknow.");
-			
-			
-			//JPanel subPanel = new JPanel();
-			
 			ProductButton prodBtn = new ProductButton(product);
 			firstPanel.add(prodBtn);
-
-		
-			
-			/*subPanel.setLayout(new GridLayout(0, 2, 0, 0));
-			
-			JLabel lblNewLabel = new JLabel(product.getName());
-			subPanel.add(lblNewLabel);
-			
-			JButton btnView = new JButton("View");
-			subPanel.add(btnView);
-			
-			JLabel lblItemprice = new JLabel(Float.toString(product.getSellPrice()));
-			subPanel.add(lblItemprice);
-			
-			JButton btnAddToCart = new JButton("Add to Cart");
-			subPanel.add(btnAddToCart);*/
 		}
-
 	}
 	
 	private void DestroyWindow() {
 		this.dispose();
 	}
-
 }
 

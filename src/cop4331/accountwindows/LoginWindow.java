@@ -10,7 +10,6 @@ import cop4331.database.Database;
 import cop4331.database.Product;
 import cop4331.database.ShoppingCartSystem;
 import cop4331.storewindows.BrowseView;
-import cop4331.storewindows.SellerWindow;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -27,7 +26,6 @@ import java.awt.Color;
  */
 public class LoginWindow extends JFrame {
 
-
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField fieldUsername;
@@ -37,9 +35,8 @@ public class LoginWindow extends JFrame {
 	 * Launch the application. The magic all starts RIGHT here!
 	 */
 	public static void main(String[] args) {
-		
 		Database data = new Database();
-		
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -49,8 +46,7 @@ public class LoginWindow extends JFrame {
 					e.printStackTrace();
 				}
 			}
-		});
-		
+		});	
 	}
 
 	/**
@@ -68,7 +64,7 @@ public class LoginWindow extends JFrame {
 		btnLogin.setBounds(154, 160, 123, 23);
 
 		contentPane.setLayout(null);
-		contentPane.add(btnLogin);
+		contentPane.add(btnLogin);		
 		
 		fieldUsername = new JTextField();
 		fieldUsername.setBounds(144, 78, 153, 20);
@@ -104,32 +100,16 @@ public class LoginWindow extends JFrame {
 		
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-
 				if(ShoppingCartSystem.getInstance().database.VerifyAccountInformation(fieldUsername.getText(), fieldPassword.getText())) {
-
 					BrowseView.ShowBrowseView();
 					DestroyLoginWindow();
-
-					//if(Account.loggedAccount instanceof Seller) {
-					//	SellerWindow.ShowSellerWindow();
-					//	DestroyLoginWindow();
-					//}
-					//else if(Account.loggedAccount instanceof Buyer){
-					//	BrowseView.ShowBrowseView();
-					//	DestroyLoginWindow();
-					//}
-					
-
 				}
 				else {
 					messageLabel.setForeground(Color.red);
 					messageLabel.setText("Invalid credentials.");
 				}
-
 			}
-		});
-		
+		});	
 	}
 	
 	private void DestroyLoginWindow() {

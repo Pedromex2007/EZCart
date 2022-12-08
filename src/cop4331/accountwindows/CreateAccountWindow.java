@@ -58,7 +58,7 @@ public class CreateAccountWindow extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JButton btnRegister = new JButton("Register");
 
 		btnRegister.setBounds(10, 227, 89, 23);
@@ -103,8 +103,6 @@ public class CreateAccountWindow extends JFrame {
 		btnSeller.setBounds(140, 91, 70, 17);
 		contentPane.add(btnSeller);
 
-		
-
 		JLabel messageLabel = new JLabel("Welcome");
 		messageLabel.setBounds(185, 220, 123, 23);
 		contentPane.add(messageLabel);
@@ -123,6 +121,7 @@ public class CreateAccountWindow extends JFrame {
 
 		btnRegister.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				if(fieldUsername.getText().equals("") || fieldPassword.getText().equals("") || fieldEmail.getText().equals("")) {
 					messageLabel.setForeground(Color.red);
 					messageLabel.setText("Please fill in all fields.");
@@ -143,6 +142,7 @@ public class CreateAccountWindow extends JFrame {
 					ShoppingCartSystem.getInstance().database.RegisterAccount(fieldUsername.getText(), fieldPassword.getText(), fieldEmail.getText(), type);
 					DestroyRegisterWindow();
 				}
+
 			}
 		});
 		

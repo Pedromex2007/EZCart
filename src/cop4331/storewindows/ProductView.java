@@ -88,37 +88,22 @@ public class ProductView extends JFrame{
         JLabel lblSellerName = new JLabel("Seller: " + product.getSellerName());
 		subPanel.add(lblSellerName);
 
-		
-
-		if(Account.loggedAccount instanceof Buyer) {
-			JButton btnAddToCart = new JButton("Add to Cart");
-			this.add(btnAddToCart);
-			btnAddToCart.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					
-					Buyer buyerCast = (Buyer)Account.loggedAccount;
-					System.out.println(buyerCast);
-					
-					
-					ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);
-					masterPanel.repaint();
-					masterPanel.revalidate();
-					
-					
-				}
-			});
+		JButton btnAddToCart = new JButton("Add to Cart");
+		subPanel.add(btnAddToCart);
+		btnAddToCart.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Buyer buyerCast = (Buyer)Account.loggedAccount;
+				System.out.println(buyerCast);		
+				ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);
+				masterPanel.repaint();
+				masterPanel.revalidate();		
 			}
-        
-		
-		
-		
+		});
     }
-	
-   
 
 	private void DestroyWindow() {
 		this.dispose();
 	}
-
 }
 

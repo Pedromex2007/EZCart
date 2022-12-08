@@ -2,6 +2,9 @@ package cop4331.accountwindows;
 
 import cop4331.database.ShoppingCart;
 
+/**
+ * @author Charles Briandi
+ */
 public class Buyer extends Account {
     private ShoppingCart cart;
 
