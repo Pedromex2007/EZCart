@@ -123,7 +123,7 @@ public class Database {
         } catch (ClassCastException e) {
         	
         	System.out.println("This is not a discounted product. Disregarding.");
-        	productDetails[6] = null;
+        	productDetails[6] = "0";
         	
         }
 
