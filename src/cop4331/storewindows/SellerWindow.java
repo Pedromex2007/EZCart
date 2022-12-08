@@ -72,6 +72,8 @@ public class SellerWindow extends JFrame {
 		contentPane_1_1.setLayout(null);
 
 		JButton btnGoBack = new JButton("Go Back");
+		btnGoBack.setBounds(10, 10, 171, 53);
+		contentPane_1_1.add(btnGoBack);
 		btnGoBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				BrowseView.ShowBrowseView();
@@ -79,13 +81,7 @@ public class SellerWindow extends JFrame {
 			}
 		});
 
-		JButton btnRefresh = new JButton("Refresh");
-
-		btnRefresh.setBounds(10, 300, 151, 33);
-		contentPane_1_1.add(btnRefresh);
-			
-		btnGoBack.setBounds(10, 11, 171, 53);
-		contentPane_1_1.add(btnGoBack);
+		
 		
 		JButton btnAddProduct = new JButton("Add New Product");
 		btnAddProduct.addActionListener(new ActionListener() {
@@ -104,6 +100,9 @@ public class SellerWindow extends JFrame {
 				ViewStatistics.ShowStatsView();
 			}
 		});
+
+
+
 		btnViewStats.setBounds(10, 140, 171, 53);
 		contentPane_1_1.add(btnViewStats);
 		
