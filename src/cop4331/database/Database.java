@@ -19,13 +19,8 @@ import cop4331.accountwindows.Seller;
  *
  */
 public class Database {
-	
-	public static Database Instance;
-
-	
 	private ArrayList<Account> activeAccounts = new ArrayList<Account>();
 	public ArrayList<Product> activeProducts = new ArrayList<Product>();
-	public ArrayList<ShoppingCart> activeShoppingCarts = new ArrayList<ShoppingCart>();
 	
 	private BufferedReader inventoryDatabaseReader;
 	private BufferedReader userDatabaseReader;
@@ -39,7 +34,7 @@ public class Database {
 	 * Instantiate the database and connect to our csv files.
 	 */
 	public Database() {
-		Instance = this;
+		
 		
 		try   {  
 
@@ -141,7 +136,84 @@ public class Database {
         
 	}
 	
-	
+	/***
+	 * Edit a product with the new product information. Product with the matching ID will be modified.
+	 * @param originalProduct Product to alter.
+	 * @param newProduct New product information.
+	 */
+	public void EditProductInformationDatabase(Product originalProduct, Product newProduct) {
+		
+		try {
+			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		}  
+		
+		ArrayList<String[]> csvLines = GetCSVLines(inventoryDatabaseReader);
+		
+		
+		
+		
+		
+		for(String[] lineString : csvLines) {
+			System.out.println("READING");
+			
+			System.out.println(Integer.parseInt(lineString[0]) + " | " + originalProduct.getProductID());
+			
+			if(Integer.parseInt(lineString[0]) == originalProduct.getProductID()) {
+				lineString[1] = newProduct.getName();
+				lineString[2] = Float.toString(newProduct.getBasePrice());
+				lineString[3] = Float.toString(newProduct.getInvoicePrice());
+				lineString[4] = Integer.toString(newProduct.getQuantity());
+				
+				//System.out.println("I found it! Editing...");
+				
+		        try {
+		        	
+		        	DiscountedProduct discProd = (DiscountedProduct)newProduct;
+		        	lineString[6] = Float.toString(discProd.getDiscountAmount());
+		        	
+		        } catch (ClassCastException e) {
+		        	System.out.println("Not a discounted product.");
+		        	lineString[6] = "0";
+		        }
+
+				break;
+			}			
+			
+		}
+		
+		//This will override everything and starting recreating the database.
+		//Only way to edit/remove things from the file apparently.
+		boolean append = false;
+		
+		for(String[] innerLine : csvLines) {
+			WriteToCSV(innerLine, inventoryDatabase, append);
+			append = true;
+		}
+		
+		for(Product product : activeProducts) {
+			if(product.getProductID() == originalProduct.getProductID()) {
+				activeProducts.remove(product);
+				break;
+			}
+		}
+		
+		
+        try {
+        	
+        	DiscountedProduct discProd = (DiscountedProduct)newProduct;
+        	activeProducts.add(new DiscountedProduct(discProd));
+        	
+        } catch (ClassCastException e) {
+        	activeProducts.add(new Product(newProduct));
+        }
+
+
+		PopulateSellerInventory();
+		//LoadInventoryItems();
+		
+	}
 	
 	
 	/***
@@ -187,23 +259,21 @@ public class Database {
 			while ((line = inventoryDatabaseReader.readLine()) != null) {  
 				
 				String[] le_line = line.split(splitBy);
-				//System.out.println(le_line[0] + ", " );  
 				
-				try {
+				if(Float.parseFloat(le_line[6]) > 0) {
 					activeProducts.add(new DiscountedProduct(
-						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
-					);
-					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
-				} catch (Exception e) {
+							Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
+						);
+				} else {
 					// Not a discounted product. Adding regular product.
 					activeProducts.add(new Product(
 						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
 					);
-					PopulateSellerInventory(activeProducts.get(activeProducts.size()-1));
 				}
 
 				
 			}
+			PopulateSellerInventory();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}  
@@ -212,22 +282,36 @@ public class Database {
 	 * Populate each seller's inventory with products that they were responsible for posting.
 	 * @param product Product to link  with seller account.
 	 */
-	private void PopulateSellerInventory(Product product) {
+	private void PopulateSellerInventory() {
+		
 		for(Account account : activeAccounts) {
-			
 			try {
 				Seller sellAccount = (Seller)account;
-				
-				if(product.getSellerName().equals(sellAccount.getUsername())) {
-					sellAccount.getInventory().AddProduct(product);
-				}
+				sellAccount.getInventory().GetProducts().clear();
 
 			} catch (ClassCastException e) {
 				continue;
 			}
-			
-
 		}
+		
+		for(Product product : activeProducts) {
+			for(Account account : activeAccounts) {
+				
+				try {
+					Seller sellAccount = (Seller)account;
+					
+					if(product.getSellerName().equals(sellAccount.getUsername())) {
+						sellAccount.getInventory().AddProduct(product);
+					}
+
+				} catch (ClassCastException e) {
+					continue;
+				}
+				
+
+			}
+		}
+
 	}
 	
 	/**

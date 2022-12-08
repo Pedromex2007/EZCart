@@ -1,8 +1,9 @@
 package cop4331.database;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Inventory {
+public class Inventory implements Iterable<Product> {
 	
 	private ArrayList<Product> products = new ArrayList<Product>();
 	
@@ -39,4 +40,13 @@ public class Inventory {
 		return products;
 	}
 
+	/**
+	 * Get an iterator for the Inventory's products
+	 * @return an iterator for the Inventory
+	 */
+	@Override
+	public Iterator<Product> iterator() {
+		return products.iterator();
+	}
 }
+

@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 
 import cop4331.database.Database;
 import cop4331.database.Product;
+import cop4331.database.ShoppingCartSystem;
 import cop4331.storewindows.BrowseView;
 
 import javax.swing.JButton;
@@ -104,7 +105,7 @@ public class LoginWindow extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 
-				if(Database.Instance.VerifyAccountInformation(fieldUsername.getText(), fieldPassword.getText())) {
+				if(ShoppingCartSystem.getInstance().database.VerifyAccountInformation(fieldUsername.getText(), fieldPassword.getText())) {
 					BrowseView.ShowBrowseView();
 					DestroyLoginWindow();
 				}

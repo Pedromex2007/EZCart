@@ -29,6 +29,10 @@ public class Product {
 	
 	public String getSellerName() { return sellerProducer; }
 
+	public float getBasePrice() {
+		return sellPrice;
+	}
+
 	public float getTotalPrice() { return sellPrice *  quantity; }
 	
 	public Product(int id, String name, float sellPrice, float invoicePrice, int quantity, String sellerProducer) {

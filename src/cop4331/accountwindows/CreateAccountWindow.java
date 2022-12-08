@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import cop4331.database.Database;
+import cop4331.database.ShoppingCartSystem;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -126,11 +127,11 @@ public class CreateAccountWindow extends JFrame {
 					messageLabel.setForeground(Color.red);
 					messageLabel.setText("Please fill in all fields.");
 				}
-				else if(Database.Instance.usernameIsTaken(fieldUsername.getText())) {
+				else if(ShoppingCartSystem.getInstance().database.usernameIsTaken(fieldUsername.getText())) {
 					messageLabel.setForeground(Color.red);
 					messageLabel.setText("Username taken.");
 				}
-				else if(Database.Instance.emailIsTaken(fieldEmail.getText())) {
+				else if(ShoppingCartSystem.getInstance().database.emailIsTaken(fieldEmail.getText())) {
 					messageLabel.setForeground(Color.red);
 					messageLabel.setText("Email taken.");
 				}
@@ -139,7 +140,7 @@ public class CreateAccountWindow extends JFrame {
 					messageLabel.setText("Buyer or Seller?");
 				}
 				else {
-					Database.Instance.RegisterAccount(fieldUsername.getText(), fieldPassword.getText(), fieldEmail.getText(), type);
+					ShoppingCartSystem.getInstance().database.RegisterAccount(fieldUsername.getText(), fieldPassword.getText(), fieldEmail.getText(), type);
 					DestroyRegisterWindow();
 				}
 			}

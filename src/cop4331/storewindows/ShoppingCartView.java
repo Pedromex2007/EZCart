@@ -17,7 +17,9 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
+/**
+ * @author Charles Briandi
+ */
 public class ShoppingCartView extends JFrame {
 
 	private JPanel contentPane;
