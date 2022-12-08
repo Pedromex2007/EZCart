@@ -67,10 +67,11 @@ public class CheckoutWindow extends JFrame {
 		fieldAddress.setBounds(144, 78, 153, 20);
 		contentPane.add(fieldAddress);
 		fieldAddress.setColumns(10);
-		
+
 		JLabel lblAddress = new JLabel("Address:");
 		lblAddress.setBounds(61, 81, 73, 14);
 		contentPane.add(lblAddress);
+
 			
 		fieldCard = new JTextField();
 		fieldCard.setColumns(10);
