@@ -28,10 +28,12 @@ public class Product {
 	public int getProductID() { return id; }
 	
 	public String getSellerName() { return sellerProducer; }
-	
+
 	public float getBasePrice() {
 		return sellPrice;
 	}
+
+	public float getTotalPrice() { return sellPrice *  quantity; }
 	
 	public Product(int id, String name, float sellPrice, float invoicePrice, int quantity, String sellerProducer) {
 		this.id = id;
@@ -51,20 +53,5 @@ public class Product {
     	this.sellerProducer = cloneProduct.sellerProducer;
     	this.type = cloneProduct.type;
 	}
-	
-	/*@Override
-    public Object clone() throws CloneNotSupportedException {
-    	Product cloneProduct = (Product)super.clone();
- 
-    	cloneProduct.id = this.id;
-    	cloneProduct.name = this.name;
-    	cloneProduct.sellPrice = this.sellPrice;
-    	cloneProduct.invoicePrice = this.invoicePrice;
-    	cloneProduct.quantity = this.quantity;
-    	cloneProduct.sellerProducer = this.sellerProducer;
-    	cloneProduct.type = this.type;
-
-        return cloneProduct;
-    }*/
 	
 }

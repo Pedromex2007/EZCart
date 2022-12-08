@@ -7,9 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import cop4331.accountwindows.Account;
+import cop4331.accountwindows.Buyer;
 import cop4331.accountwindows.Seller;
 import cop4331.database.Database;
 import cop4331.database.Product;
+import cop4331.database.ShoppingCart;
 import cop4331.database.ShoppingCartSystem;
 
 import java.awt.GridLayout;
@@ -50,6 +52,7 @@ public class BrowseView extends JFrame {
 	/**
 	 * Create the frame.
 	 * @author Rafael Luviano
+	 * @author Charles Briandi
 	 */
 	public BrowseView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,17 +71,7 @@ public class BrowseView extends JFrame {
 		panel.add(subPanel);
 		subPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblNewLabel = new JLabel("ITEM_NAME:");
-		subPanel.add(lblNewLabel);
 		
-		JButton btnView = new JButton("View");
-		subPanel.add(btnView);
-		
-		JLabel lblItemprice = new JLabel("ITEM_PRICE:");
-		subPanel.add(lblItemprice);
-		
-		JButton btnAddToCart = new JButton("Add to Cart");
-		subPanel.add(btnAddToCart);
 		
 		GenerateStoreButtons(panel);
 		
@@ -97,6 +90,20 @@ public class BrowseView extends JFrame {
 			});
 			
 		}
+		else {
+			JButton btnViewCartPage = new JButton("View Cart");
+
+			btnViewCartPage.setBounds(584, 11, 151, 33);
+			masterPanel.add(btnViewCartPage);
+			
+			btnViewCartPage.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ShoppingCartView.ShowShoppingCartView();
+					System.out.println("Showing cart");
+					DestroyWindow();
+				}
+			});
+		}
 		
 		
 	}
@@ -104,6 +111,7 @@ public class BrowseView extends JFrame {
 	/**
 	 * Create panels that contain all items from our database.
 	 * @author Rafael Luviano
+	 * @author Charles Briandi
 	 */
 	private void GenerateStoreButtons(JPanel firstPanel) {
 		
@@ -122,12 +130,35 @@ public class BrowseView extends JFrame {
 				
 				JButton btnView = new JButton("View");
 				this.add(btnView);
+				btnView.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ProductView.ShowProductView(product);
+						System.out.println("Viewing product");
+						DestroyWindow();
+					}
+				});
 				
 				JLabel lblItemprice = new JLabel(Float.toString(product.getSellPrice()));
 				this.add(lblItemprice);
 				
 				JButton btnAddToCart = new JButton("Add to Cart");
 				this.add(btnAddToCart);
+				btnAddToCart.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						Buyer buyerCast = (Buyer)Account.loggedAccount;
+						System.out.println(buyerCast);
+						
+						
+						ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);
+						masterPanel.repaint();
+						masterPanel.revalidate();
+						
+						
+					}
+				});
+
+				
 			}
 		}
 		
@@ -135,7 +166,7 @@ public class BrowseView extends JFrame {
 		// Clicking on the "view" button will instantiate the DetailView. Information from the item will be transferred to this view.
 		
 		// Instantiate each button.
-		for(Product product : ShoppingCartSystem.getInstance().database.activeProducts) {
+		for(Product product : ShoppingCartSystem.getInstance().database.activeProducts) { 
 			System.out.println("Something, yknow.");
 			
 			
@@ -143,6 +174,8 @@ public class BrowseView extends JFrame {
 			
 			ProductButton prodBtn = new ProductButton(product);
 			firstPanel.add(prodBtn);
+
+		
 			
 			/*subPanel.setLayout(new GridLayout(0, 2, 0, 0));
 			

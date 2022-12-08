@@ -103,10 +103,6 @@ public class SellerWindow extends JFrame {
 	private void GenerateListedProducts(JPanel subPanel) {
 		class ProductButton extends JButton {
 
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
 			Product product;
 			
 			public ProductButton(Product product) {
@@ -127,16 +123,12 @@ public class SellerWindow extends JFrame {
 			JLabel lblName = new JLabel(product.getName());
 			subPanel.add(lblName);
 			
-			System.out.println(product.getProductID());
-			
 			ProductButton prodBtn = new ProductButton(product);
-			System.out.println(prodBtn.product.getProductID());
 			prodBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					
 					System.out.println("It worked!");
-					UpdateProductWindow.ShowUpdateProductWindow(prodBtn.product);
-					DestroyWindow();
+					
 				}
 			});
 			
@@ -146,9 +138,5 @@ public class SellerWindow extends JFrame {
 			
 		}
 		
-	}
-	
-	private void DestroyWindow() {
-		this.dispose();
 	}
 }
