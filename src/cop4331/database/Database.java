@@ -16,7 +16,6 @@ import cop4331.accountwindows.Seller;
 /**
  * 
  * @author Rafael Luviano
- * @author Charles Briandi 
  *
  */
 public class Database {
