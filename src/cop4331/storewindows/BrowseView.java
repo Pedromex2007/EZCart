@@ -136,18 +136,18 @@ public class BrowseView extends JFrame {
 				
 				JLabel lblItemprice = new JLabel("Price: " + Float.toString(product.getSellPrice()));
 				this.add(lblItemprice);
-				
-				JButton btnAddToCart = new JButton("Add to Cart");
-				this.add(btnAddToCart);
-				btnAddToCart.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+				if(Account.loggedAccount instanceof Buyer) {
+					JButton btnAddToCart = new JButton("Add to Cart");
+					this.add(btnAddToCart);
+					btnAddToCart.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent e) {
 						
-						Buyer buyerCast = (Buyer)Account.loggedAccount;
-						System.out.println(buyerCast);			
-						ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);	
-					}
-				});
-
+							Buyer buyerCast = (Buyer)Account.loggedAccount;
+							System.out.println(buyerCast);			
+							ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);	
+						}
+					});
+				}
 				
 			}
 		}

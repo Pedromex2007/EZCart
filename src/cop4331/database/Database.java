@@ -16,7 +16,6 @@ import cop4331.accountwindows.Seller;
 /**
  * 
  * @author Rafael Luviano
- * @author Charles Briandi 
  *
  */
 public class Database {
@@ -395,7 +394,13 @@ public class Database {
         accountDetails[2] = email;
         accountDetails[3] = type;
         
-        activeAccounts.add(new Account(username, password, email));	
+		if(accountDetails[3] == "Buyer") {
+			activeAccounts.add(new Buyer(username, password, email));	
+		}
+		else{
+			activeAccounts.add(new Seller(username, password, email));	
+		}
+        
 
         WriteToCSV(accountDetails, userDatabase, true);
         
