@@ -57,7 +57,6 @@ public class CheckoutWindow extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-	
 		
 		fieldAddress = new JTextField();
 		fieldAddress.setBounds(144, 78, 153, 20);
@@ -67,8 +66,7 @@ public class CheckoutWindow extends JFrame {
 		JLabel lblUsername = new JLabel("Address:");
 		lblUsername.setBounds(61, 81, 73, 14);
 		contentPane.add(lblUsername);
-	
-		
+			
 		fieldCard = new JTextField();
 		fieldCard.setColumns(10);
 		fieldCard.setBounds(144, 109, 153, 20);
@@ -82,8 +80,6 @@ public class CheckoutWindow extends JFrame {
 		messageLabel.setBounds(185, 220, 123, 23);
 		contentPane.add(messageLabel);
 		
-		
-
 		JButton btnBackToStore = new JButton("Back to Cart");
 		btnBackToStore.setBounds(10, 10, 150, 25);
 		contentPane.add(btnBackToStore);
@@ -97,7 +93,6 @@ public class CheckoutWindow extends JFrame {
 
 		GenerateTotal(contentPane);
 		
-
 		JButton btnCheckout = new JButton("Checkout");
 		btnCheckout.setBounds(154, 160, 123, 23);
 		contentPane.add(btnCheckout);
@@ -123,8 +118,7 @@ public class CheckoutWindow extends JFrame {
 				}
 
 			}
-		});
-		
+		});	
 	}
 
 	/**
@@ -136,7 +130,5 @@ public class CheckoutWindow extends JFrame {
 		JLabel lblTotal = new JLabel("Total Price: " + Float.toString(buyerCast.getShoppingCart().getTotalCost()));
 		lblTotal.setBounds(172, 175, 150, 75);
 		subPanel.add(lblTotal);
-		
 	}
-
 }

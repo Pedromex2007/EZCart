@@ -71,8 +71,6 @@ public class BrowseView extends JFrame {
 		panel.add(subPanel);
 		subPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		
-		
 		GenerateStoreButtons(panel);
 		
 		if(Account.loggedAccount instanceof Seller) {
@@ -104,8 +102,6 @@ public class BrowseView extends JFrame {
 				}
 			});
 		}
-		
-		
 	}
 	
 	/**
@@ -147,14 +143,8 @@ public class BrowseView extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						
 						Buyer buyerCast = (Buyer)Account.loggedAccount;
-						System.out.println(buyerCast);
-						
-						
-						ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);
-						masterPanel.repaint();
-						masterPanel.revalidate();
-						
-						
+						System.out.println(buyerCast);			
+						ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);	
 					}
 				});
 
@@ -168,35 +158,13 @@ public class BrowseView extends JFrame {
 		// Instantiate each button.
 		for(Product product : ShoppingCartSystem.getInstance().database.activeProducts) { 
 			System.out.println("Something, yknow.");
-			
-			
-			//JPanel subPanel = new JPanel();
-			
 			ProductButton prodBtn = new ProductButton(product);
 			firstPanel.add(prodBtn);
-
-		
-			
-			/*subPanel.setLayout(new GridLayout(0, 2, 0, 0));
-			
-			JLabel lblNewLabel = new JLabel(product.getName());
-			subPanel.add(lblNewLabel);
-			
-			JButton btnView = new JButton("View");
-			subPanel.add(btnView);
-			
-			JLabel lblItemprice = new JLabel(Float.toString(product.getSellPrice()));
-			subPanel.add(lblItemprice);
-			
-			JButton btnAddToCart = new JButton("Add to Cart");
-			subPanel.add(btnAddToCart);*/
 		}
-
 	}
 	
 	private void DestroyWindow() {
 		this.dispose();
 	}
-
 }
 

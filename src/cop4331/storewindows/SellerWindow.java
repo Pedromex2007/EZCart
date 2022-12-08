@@ -62,13 +62,7 @@ public class SellerWindow extends JFrame {
 		JPanel panel = new JPanel();
 		contentPane_1.add(panel);
 		panel.setLayout(new GridLayout(0, 4, 0, 0));
-		
-		/*JLabel lblName = new JLabel("PRODUCT_NAME:");
-		panel.add(lblName);
-		
-		JButton btnEditProduct = new JButton("Edit this Product");
-		panel.add(btnEditProduct);*/
-		
+			
 		GenerateListedProducts(panel);
 		
 		JPanel contentPane_1_1 = new JPanel();
@@ -84,6 +78,12 @@ public class SellerWindow extends JFrame {
 				DestroyWindow();
 			}
 		});
+
+		JButton btnRefresh = new JButton("Refresh");
+
+		btnRefresh.setBounds(10, 300, 151, 33);
+		contentPane_1_1.add(btnRefresh);
+			
 		btnGoBack.setBounds(10, 11, 171, 53);
 		contentPane_1_1.add(btnGoBack);
 		
@@ -98,8 +98,6 @@ public class SellerWindow extends JFrame {
 		btnAddProduct.setBounds(10, 75, 171, 53);
 		contentPane_1_1.add(btnAddProduct);
 		
-		
-
 		JButton btnViewStats = new JButton("View Statistics");
 		btnViewStats.setBounds(10, 139, 171, 53);
 		contentPane_1_1.add(btnViewStats);
@@ -119,9 +117,6 @@ public class SellerWindow extends JFrame {
 			
 			public ProductButton(Product product) {
 				this.product = product;
-
-				//JLabel lblName = new JLabel(product.getName());
-				//subPanel.add(lblName);
 				this.setText("Edit this Product");
 				subPanel.add(this);
 			}
@@ -130,25 +125,22 @@ public class SellerWindow extends JFrame {
 		Seller sellerCast = (Seller)Account.loggedAccount;
 		
 		for(Product product : sellerCast.getInventory()) {
-			
-			
 			JLabel lblName = new JLabel(product.getName());
 			subPanel.add(lblName);
-			
+
 			ProductButton prodBtn = new ProductButton(product);
 			prodBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					UpdateProductWindow.ShowUpdateProductWindow(product);
+					DestroyWindow();
 					System.out.println("It worked!");
 					
 				}
 			});
-			
-			//JButton btnEditProduct = new JButton("Edit this Product");
-			//subPanel.add(btnEditProduct);
-			
-			
 		}
-		
 	}
+	private void DestroyWindow() {
+		this.dispose();
+	}
+	
 }
