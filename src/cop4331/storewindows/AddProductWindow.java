@@ -20,6 +20,11 @@ import java.util.Random;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
+/**
+ * 
+ * @author Charles Briandi 
+ *
+ */
 public class AddProductWindow extends JFrame {
 
 	private JPanel contentPane;

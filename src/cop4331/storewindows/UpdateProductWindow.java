@@ -19,6 +19,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Rafael Luviano
+ * @author Charles Briandi 
+ *
+ */
 public class UpdateProductWindow extends JFrame {
 
 	private JPanel contentPane;

@@ -3,6 +3,11 @@ package cop4331.database;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+/***
+ * 
+ * @author Connor
+ *
+ */
 public class Inventory implements Iterable<Product> {
 	
 	private ArrayList<Product> products = new ArrayList<Product>();

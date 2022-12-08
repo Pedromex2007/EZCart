@@ -1,6 +1,11 @@
 package cop4331.database;
 
-
+/**
+ * 
+ * @author Connor
+ * @author Charles Briandi 
+ *
+ */
 public class ShoppingCartSystem {
 	public Database database;
 

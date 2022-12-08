@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import cop4331.accountwindows.Seller;
 
+/**
+ * 
+ * @author Rafael Luviano
+ *
+ */
 public class TransactionHistory {
 	private ArrayList<Transaction> transactions = new ArrayList<Transaction>();
 	

@@ -1,5 +1,10 @@
 package cop4331.database;
 
+/**
+ * 
+ * @author Rafael Luviano
+ *
+ */
 public class Transaction {
 	
 	// NOTE: Accounts don't have numeric IDs, so the account username will be used as the ID instead.

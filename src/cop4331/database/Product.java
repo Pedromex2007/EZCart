@@ -2,6 +2,12 @@ package cop4331.database;
 
 import cop4331.accountwindows.Seller;
 
+/**
+ * 
+ * @author Rafael Luviano
+ * @author Charles Briandi 
+ *
+ */
 public class Product {
 
 	private int id;
@@ -29,10 +35,18 @@ public class Product {
 	
 	public String getSellerName() { return sellerProducer; }
 
+	/***
+	 * Get the base price without any modifiers.
+	 * @return Unmodified product price.
+	 */
 	public float getBasePrice() {
 		return sellPrice;
 	}
 
+	/***
+	 * 
+	 * @return
+	 */
 	public float getTotalPrice() { return sellPrice *  quantity; }
 	
 	public Product(int id, String name, float sellPrice, float invoicePrice, int quantity, String sellerProducer) {

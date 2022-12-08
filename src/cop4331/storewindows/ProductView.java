@@ -23,6 +23,11 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * 
+ * @author Charles Briandi 
+ *
+ */
 public class ProductView extends JFrame{
     private JPanel masterPanel;
     
