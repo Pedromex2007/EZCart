@@ -58,6 +58,7 @@ public class CreateAccountWindow extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
 		
 		JButton btnRegister = new JButton("Register");
 

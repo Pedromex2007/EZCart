@@ -76,6 +76,16 @@ public class SellerWindow extends JFrame {
 		contentPane_1_1.setBounds(0, 21, 191, 415);
 		contentPane.add(contentPane_1_1);
 		contentPane_1_1.setLayout(null);
+
+		JButton btnGoBack = new JButton("Go Back");
+		btnGoBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BrowseView.ShowBrowseView();
+				DestroyWindow();
+			}
+		});
+		btnGoBack.setBounds(10, 11, 171, 53);
+		contentPane_1_1.add(btnGoBack);
 		
 		JButton btnAddProduct = new JButton("Add New Product");
 		btnAddProduct.addActionListener(new ActionListener() {
@@ -85,11 +95,13 @@ public class SellerWindow extends JFrame {
 				
 			}
 		});
-		btnAddProduct.setBounds(10, 11, 171, 53);
+		btnAddProduct.setBounds(10, 75, 171, 53);
 		contentPane_1_1.add(btnAddProduct);
 		
+		
+
 		JButton btnViewStats = new JButton("View Statistics");
-		btnViewStats.setBounds(10, 75, 171, 53);
+		btnViewStats.setBounds(10, 139, 171, 53);
 		contentPane_1_1.add(btnViewStats);
 		
 		JLabel lblNewLabel = new JLabel("Listed Products");

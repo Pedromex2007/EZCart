@@ -138,7 +138,7 @@ public class BrowseView extends JFrame {
 					}
 				});
 				
-				JLabel lblItemprice = new JLabel(Float.toString(product.getSellPrice()));
+				JLabel lblItemprice = new JLabel("Price: " + Float.toString(product.getSellPrice()));
 				this.add(lblItemprice);
 				
 				JButton btnAddToCart = new JButton("Add to Cart");
