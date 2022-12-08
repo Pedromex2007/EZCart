@@ -40,19 +40,14 @@ public class Product {
 		this.sellerProducer = sellerProducer;
 	}
 	
-    /*public Object clone() throws CloneNotSupportedException {
-        // Assign the shallow copy to
-        // new reference variable t
-    	Product t = (Product)super.clone();
- 
-        // Creating a deep copy for c
-        t.c = new Product();
-
- 
-        // Create a new object for the field c
-        // and assign it to shallow copy obtained,
-        // to make it a deep copy
-        return t;
-    }*/
+	public Product(Product cloneProduct) {
+    	this.id = cloneProduct.id;
+    	this.name = cloneProduct.name;
+    	this.sellPrice = cloneProduct.sellPrice;
+    	this.invoicePrice = cloneProduct.invoicePrice;
+    	this.quantity = cloneProduct.quantity;
+    	this.sellerProducer = cloneProduct.sellerProducer;
+    	this.type = cloneProduct.type;
+	}
 	
 }

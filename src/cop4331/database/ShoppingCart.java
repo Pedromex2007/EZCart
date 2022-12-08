@@ -1,13 +1,15 @@
 package cop4331.database;
 
 import java.util.ArrayList;
-
+/**
+ * @author Charles Briandi
+ */
 public class ShoppingCart {
 
 	private ArrayList<Product> cart = new ArrayList<Product>();
 	
 	/**
-	 * Add a product to this specific inventory.
+	 * Add a product to this cart
 	 * @param product
 	 */
 	public void addProduct(Product product) {
@@ -16,7 +18,7 @@ public class ShoppingCart {
 	}
 	
 	/**
-	 * Remove a product from the inventory.
+	 * Remove a product from the cart
 	 * @param productID
 	 */
 	public void removeProduct(int productID) {
@@ -33,7 +35,7 @@ public class ShoppingCart {
 	}
 	
 	/**
-	 * Get the list of products in this inventory.
+	 * Get the list of products in cart
 	 * @return
 	 */
 	public ArrayList<Product> getProducts() {
@@ -51,5 +53,29 @@ public class ShoppingCart {
 		
 		return finalCost;
 		
+	}
+
+	/**
+	 * add a product of quantity 1 to the cart
+	 * @param cart
+	 * @param product
+	 */
+	public static void addToShoppingCart(ArrayList<Product> cart, Product product){
+		int count = 0;
+		for(Product p : cart) {
+			if(p.getProductID() == product.getProductID()) {
+				if(p.getQuantity() < product.getQuantity())
+				p.setQuantity(p.getQuantity() + 1);
+				count++;
+			}
+		}
+		if(count == 0) {
+			Product temp = new Product(product);
+			temp.setQuantity(1);
+			
+			System.out.println(temp);
+			System.out.println("Quantity: " + Integer.toString(temp.getQuantity()));
+			cart.add(temp);
+		}
 	}
 }

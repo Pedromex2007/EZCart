@@ -130,8 +130,12 @@ public class ShoppingCartView extends JFrame {
 			prodBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					buyerCast.getShoppingCart().removeProduct(product.getProductID());
+					contentPane.repaint();
+					contentPane.revalidate();
 					System.out.println("Product removed.");
+					
 				}
+				
 			});
 			
 			

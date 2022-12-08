@@ -11,6 +11,7 @@ import cop4331.accountwindows.Buyer;
 import cop4331.accountwindows.Seller;
 import cop4331.database.Database;
 import cop4331.database.Product;
+import cop4331.database.ShoppingCart;
 
 import java.awt.GridLayout;
 import javax.swing.JButton;
@@ -143,8 +144,16 @@ public class BrowseView extends JFrame {
 				this.add(btnAddToCart);
 				btnAddToCart.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
+						
 						Buyer buyerCast = (Buyer)Account.loggedAccount;
-						buyerCast.getShoppingCart().addProduct(product);
+						System.out.println(buyerCast);
+						
+						
+						ShoppingCart.addToShoppingCart(buyerCast.getShoppingCart().getProducts(), product);
+						masterPanel.repaint();
+						masterPanel.revalidate();
+						
+						
 					}
 				});
 
