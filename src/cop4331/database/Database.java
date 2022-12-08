@@ -25,25 +25,32 @@ public class Database {
 	
 	private BufferedReader inventoryDatabaseReader;
 	private BufferedReader userDatabaseReader;
+	private BufferedReader transactionDatabaseReader;
 
 	
 	private File inventoryDatabase;
 	private File userDatabase;
+	private File transactionDatabase;
 	
 	
 	/**
 	 * Instantiate the database and connect to our csv files.
 	 */
 	public Database() {
+		
+		TransactionHistory transactionHistory = new TransactionHistory();
 
 		try   {  
 
 			inventoryDatabaseReader = new BufferedReader(new FileReader("inventoryList.csv"));  
 			userDatabaseReader = new BufferedReader(new FileReader("userList.csv")); 
+			transactionDatabaseReader = new BufferedReader(new FileReader("transactionList.csv")); 
 			
 			
 			userDatabase = new File("userList.csv");
 			inventoryDatabase = new File("inventoryList.csv");
+			transactionDatabase = new File("transactionList.csv");
+			
 			
 			
 			Load();
@@ -65,6 +72,7 @@ public class Database {
 	public void Load() {
 		LoadAccounts();
 		LoadInventoryItems();
+		LoadTransactionRecords();
 		//EditProductInformationDatabase();
 	}
 	
@@ -391,6 +399,47 @@ public class Database {
 
         WriteToCSV(accountDetails, userDatabase, true);
         
+	}
+	
+	/***
+	 * Load our transaction records and save them into memory.
+	 */
+	
+	public void LoadTransactionRecords() {
+		String line = "";  
+		String splitBy = ",";  
+		
+		try {
+			
+			while ((line = transactionDatabaseReader.readLine()) != null) {  
+				
+				String[] le_line = line.split(splitBy);
+				//System.out.println(le_line[0] + ", " );  
+				
+				TransactionHistory.getTransactions().add(new Transaction(Integer.parseInt(le_line[0]), le_line[1], le_line[2], Float.parseFloat(le_line[3])));
+
+				
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}  
+	}
+	
+	/***
+	 * Record a transaction in our csv file.
+	 * @param transaction The transaction to save.
+	 */
+	public void CreateTransactionRecord(Transaction transaction) {
+		String[] transactionDetails = new String[4];
+		transactionDetails[0] = Integer.toString(transaction.getTransactionID());
+		transactionDetails[1] = transaction.getSellerID();
+		transactionDetails[2] = transaction.getBuyerID();
+		transactionDetails[3] = Float.toString(transaction.getCost());
+		
+		TransactionHistory.getTransactions().add(transaction);
+		
+		WriteToCSV(transactionDetails, transactionDatabase, true);
 	}
 	
 	/***

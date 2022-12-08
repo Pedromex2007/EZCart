@@ -99,7 +99,12 @@ public class SellerWindow extends JFrame {
 		contentPane_1_1.add(btnAddProduct);
 		
 		JButton btnViewStats = new JButton("View Statistics");
-		btnViewStats.setBounds(10, 139, 171, 53);
+		btnViewStats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ViewStatistics.ShowStatsView();
+			}
+		});
+		btnViewStats.setBounds(10, 75, 171, 53);
 		contentPane_1_1.add(btnViewStats);
 		
 		JLabel lblNewLabel = new JLabel("Listed Products");
