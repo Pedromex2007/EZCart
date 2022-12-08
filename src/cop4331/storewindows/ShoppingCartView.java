@@ -86,7 +86,7 @@ public class ShoppingCartView extends JFrame {
 		btnCheckOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				//CheckoutWindow.ShowCheckoutWindow();
+				CheckoutWindow.ShowCheckoutWindow();
 				
 			}
 		});
