@@ -1,12 +1,15 @@
 package cop4331.database;
 
 public class Transaction {
+	
+	// NOTE: Accounts don't have numeric IDs, so the account username will be used as the ID instead.
+	
 	private int id;
-	private int sellerID;
-	private int buyerID;
+	private String sellerID;
+	private String buyerID;
 	private float cost;
 	
-	public Transaction(int id, int sellerID, int buyerID, float cost) {
+	public Transaction(int id, String sellerID, String buyerID, float cost) {
 		this.id = id;
 		this.sellerID = sellerID;
 		this.buyerID = buyerID;
@@ -17,11 +20,11 @@ public class Transaction {
 		return id;
 	}
 	
-	public int getSellerID() {
+	public String getSellerID() {
 		return sellerID;
 	}
 	
-	public int getBuyerID() {
+	public String getBuyerID() {
 		return buyerID;
 	}
 	
