@@ -28,6 +28,8 @@ public class Product {
 	public int getProductID() { return id; }
 	
 	public String getSellerName() { return sellerProducer; }
+
+	public float getTotalPrice() { return sellPrice *  quantity; }
 	
 	public Product(int id, String name, float sellPrice, float invoicePrice, int quantity, String sellerProducer) {
 		this.id = id;

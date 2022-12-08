@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import cop4331.accountwindows.Account;
+import cop4331.accountwindows.Buyer;
 import cop4331.accountwindows.Seller;
 import cop4331.database.Database;
 import cop4331.database.Product;
@@ -49,6 +50,7 @@ public class BrowseView extends JFrame {
 	/**
 	 * Create the frame.
 	 * @author Rafael Luviano
+	 * @author Charles Briandi
 	 */
 	public BrowseView() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,17 +69,7 @@ public class BrowseView extends JFrame {
 		panel.add(subPanel);
 		subPanel.setLayout(new GridLayout(0, 2, 0, 0));
 		
-		JLabel lblNewLabel = new JLabel("ITEM_NAME:");
-		subPanel.add(lblNewLabel);
 		
-		JButton btnView = new JButton("View");
-		subPanel.add(btnView);
-		
-		JLabel lblItemprice = new JLabel("ITEM_PRICE:");
-		subPanel.add(lblItemprice);
-		
-		JButton btnAddToCart = new JButton("Add to Cart");
-		subPanel.add(btnAddToCart);
 		
 		GenerateStoreButtons(panel);
 		
@@ -117,6 +109,7 @@ public class BrowseView extends JFrame {
 	/**
 	 * Create panels that contain all items from our database.
 	 * @author Rafael Luviano
+	 * @author Charles Briandi
 	 */
 	private void GenerateStoreButtons(JPanel firstPanel) {
 		
@@ -148,6 +141,12 @@ public class BrowseView extends JFrame {
 				
 				JButton btnAddToCart = new JButton("Add to Cart");
 				this.add(btnAddToCart);
+				btnAddToCart.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						Buyer buyerCast = (Buyer)Account.loggedAccount;
+						buyerCast.getShoppingCart().addProduct(product);
+					}
+				});
 
 				
 			}
