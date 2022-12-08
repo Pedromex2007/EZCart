@@ -37,6 +37,8 @@ public class Database {
 	 * Instantiate the database and connect to our csv files.
 	 */
 	public Database() {
+		
+		TransactionHistory transactionHistory = new TransactionHistory();
 
 		try   {  
 
@@ -48,6 +50,7 @@ public class Database {
 			userDatabase = new File("userList.csv");
 			inventoryDatabase = new File("inventoryList.csv");
 			transactionDatabase = new File("transactionList.csv");
+			
 			
 			
 			Load();
@@ -398,6 +401,10 @@ public class Database {
         
 	}
 	
+	/***
+	 * Load our transaction records and save them into memory.
+	 */
+	
 	public void LoadTransactionRecords() {
 		String line = "";  
 		String splitBy = ",";  
@@ -419,6 +426,10 @@ public class Database {
 		}  
 	}
 	
+	/***
+	 * Record a transaction in our csv file.
+	 * @param transaction The transaction to save.
+	 */
 	public void CreateTransactionRecord(Transaction transaction) {
 		String[] transactionDetails = new String[4];
 		transactionDetails[0] = Integer.toString(transaction.getTransactionID());
