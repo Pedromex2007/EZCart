@@ -25,7 +25,7 @@ public class ShoppingCartView extends JFrame {
 	private JPanel contentPane;
 
 	/**
-	 * Launch the shopping cart window. Lets you do shopping. I mean, let's you do shop carting.
+	 * Launch the shopping cart window.
 	 */
 	public static void ShowShoppingCartView() {
 		EventQueue.invokeLater(new Runnable() {

@@ -14,10 +14,20 @@ public class DiscountedProduct extends Product {
 		this.discount = discount;
 	}
 	
+	/***
+	 * Clone a regular product into a discounted one.
+	 * @param cloneProduct Product to clone.
+	 * @param discount Discount float to apply.
+	 */
 	public DiscountedProduct(Product cloneProduct, float discount) {
 		super(cloneProduct);
 		this.discount = discount;
 	}
+	
+	/***
+	 * Clone a discounted product.
+	 * @param cloneProduct Product to clone.
+	 */
 	public DiscountedProduct(DiscountedProduct cloneProduct) {
 		super(cloneProduct);
 		this.discount = cloneProduct.discount;
@@ -30,6 +40,9 @@ public class DiscountedProduct extends Product {
 		return this.discount;
 	}
 	
+	/***
+	 * Get the selling price.
+	 */
 	@Override
 	public float getSellPrice() {
 		return super.getSellPrice() * discount; 

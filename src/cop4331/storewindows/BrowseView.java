@@ -34,7 +34,7 @@ public class BrowseView extends JFrame {
 	private JPanel masterPanel;
 
 	/**
-	 * Launch the application.
+	 * Launch the browse window.
 	 */
 	public static void ShowBrowseView() {
 		EventQueue.invokeLater(new Runnable() {

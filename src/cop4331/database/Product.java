@@ -44,8 +44,8 @@ public class Product {
 	}
 
 	/***
-	 * 
-	 * @return
+	 * Get the price of all available products in stock.
+	 * @return Product cost times the quantity.
 	 */
 	public float getTotalPrice() { return sellPrice *  quantity; }
 	

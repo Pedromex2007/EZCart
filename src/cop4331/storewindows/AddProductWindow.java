@@ -34,7 +34,7 @@ public class AddProductWindow extends JFrame {
 	private JTextField fieldDiscount;
 
 	/**
-	 * Launch the application.
+	 * Launch the window that lets sellers add products.
 	 */
 	public static void ShowAddProductWindow() {
 		EventQueue.invokeLater(new Runnable() {
