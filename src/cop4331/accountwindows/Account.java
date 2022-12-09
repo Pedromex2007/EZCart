@@ -1,5 +1,11 @@
 package cop4331.accountwindows;
 
+/**
+ * 
+ * @author Rafael Luviano
+ * @author Charles Briandi 
+ *
+ */
 public class Account {
 	// This is the account we're logged into.
 	public static Account loggedAccount;
@@ -14,8 +20,22 @@ public class Account {
 		accountEmail = email;
 	}
 	
+	/***
+	 * This user's username. Also serves as their ID.
+	 * @return User username.
+	 */
 	public String getUsername() { return accountUsername; }
+	
+	/***
+	 * The user's completely unencoded/unencrypted password. Not a good idea.
+	 * @return Raw password.
+	 */
 	public String getPassword() { return accountPassword; }
+	
+	/***
+	 * The user's email.
+	 * @return Email address.
+	 */
 	public String getEmail() { return accountEmail; }
 	
 }

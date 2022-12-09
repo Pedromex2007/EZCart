@@ -73,7 +73,6 @@ public class Database {
 		LoadAccounts();
 		LoadInventoryItems();
 		LoadTransactionRecords();
-		//EditProductInformationDatabase();
 	}
 	
 	/**
@@ -174,7 +173,6 @@ public class Database {
 				lineString[3] = Float.toString(newProduct.getInvoicePrice());
 				lineString[4] = Integer.toString(newProduct.getQuantity());
 				
-				//System.out.println("I found it! Editing...");
 				
 		        try {
 		        	
@@ -219,7 +217,6 @@ public class Database {
 
 
 		PopulateSellerInventory();
-		//LoadInventoryItems();
 		
 	}
 	
@@ -420,7 +417,6 @@ public class Database {
 			while ((line = transactionDatabaseReader.readLine()) != null) {  
 				
 				String[] le_line = line.split(splitBy);
-				//System.out.println(le_line[0] + ", " );  
 				
 				TransactionHistory.getTransactions().add(new Transaction(Integer.parseInt(le_line[0]), le_line[1], le_line[2], Float.parseFloat(le_line[3])));
 
@@ -475,9 +471,7 @@ public class Database {
 		
         for (int i = 0; i < stringLine.length; i++) {
         	System.out.println(stringLine.length);
-            //line.append("\"");
             line.append(stringLine[i].replaceAll("\"","\"\""));
-            //line.append("\"");
             if (i != stringLine.length - 1) {
                 line.append(',');
             }
