@@ -249,8 +249,21 @@ public class Database {
 		
 		return csvLines;
 	}
-	
-	
+
+	/**
+	 * Parses a line to return a Product or DiscountedProduct
+	 * @param line
+	 * @return the parsed product
+	 */
+	private static Product ParseInventoryItem(String[] line) {
+		if(Float.parseFloat(line[6]) > 0) {
+			return new DiscountedProduct(Integer.parseInt(line[0]), line[1], Float.parseFloat(line[2]), Float.parseFloat(line[3]), Integer.parseInt(line[4]), line[5], Float.parseFloat(line[6]));
+		} else {
+			// Not a discounted product. Adding regular product.
+			return new Product(Integer.parseInt(line[0]), line[1], Float.parseFloat(line[2]), Float.parseFloat(line[3]), Integer.parseInt(line[4]), line[5]);
+		}
+	}
+
 	/**
 	 * Load all of the product items in our bootleg database, aka the csv files, and add them into memory.
 	 */
@@ -264,19 +277,8 @@ public class Database {
 			while ((line = inventoryDatabaseReader.readLine()) != null) {  
 				
 				String[] le_line = line.split(splitBy);
-				
-				if(Float.parseFloat(le_line[6]) > 0) {
-					activeProducts.add(new DiscountedProduct(
-							Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5], Float.parseFloat(le_line[6]))
-						);
-				} else {
-					// Not a discounted product. Adding regular product.
-					activeProducts.add(new Product(
-						Integer.parseInt(le_line[0]), le_line[1], Float.parseFloat(le_line[2]), Float.parseFloat(le_line[3]), Integer.parseInt(le_line[4]), le_line[5])
-					);
-				}
 
-				
+				activeProducts.add(ParseInventoryItem(le_line));
 			}
 			PopulateSellerInventory();
 		} catch (IOException e) {
@@ -285,7 +287,6 @@ public class Database {
 	}
 	/**
 	 * Populate each seller's inventory with products that they were responsible for posting.
-	 * @param product Product to link  with seller account.
 	 */
 	private void PopulateSellerInventory() {
 		
