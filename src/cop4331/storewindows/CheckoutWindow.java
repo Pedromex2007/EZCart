@@ -17,8 +17,6 @@ import cop4331.database.Transaction;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.util.Random;
 import java.awt.event.ActionEvent;

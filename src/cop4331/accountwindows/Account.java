@@ -27,7 +27,7 @@ public class Account {
 	public String getUsername() { return accountUsername; }
 	
 	/***
-	 * The user's completely unencoded/unencrypted password. Not a good idea.
+	 * The user's completely un-encoded/un-encrypted password. Not a good idea.
 	 * @return Raw password.
 	 */
 	public String getPassword() { return accountPassword; }
